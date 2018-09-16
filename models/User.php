@@ -18,6 +18,7 @@ class User extends Model
 			{
 				$_SESSION['user_id'] = $user_record->id;
 				$_SESSION['user_email'] = $user_record->email;
+				$_SESSION['user_password'] = $user_record->password;
 				$_SESSION['user_displayName'] = $user_record->display_name;
 
 				return true;
@@ -25,6 +26,16 @@ class User extends Model
 		}
 
 		return false;
+	}
+
+	public function updatePassword($user_id, $pwd_new)
+	{
+		return $this->rawSQL("UPDATE users SET password = '$pwd_new' WHERE id = $user_id");
+	}
+
+	public function updateDisplayName($user_id, $display_name)
+	{
+		return $this->rawSQL("UPDATE users SET display_name = '$display_name' WHERE id = $user_id");
 	}
 
 	public static function isLogged()

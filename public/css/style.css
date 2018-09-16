@@ -9,6 +9,8 @@ html, body
 	font-family: 'Nunito', 'Arial', sans-serif;
 	font-size: 16px;
 	color: #050505;
+
+	background-color: #f0f0f0;
 }
 
 /***********************************************************************************************************************
@@ -23,8 +25,6 @@ html, body
 
 	width: 100%;
 	height: 100%;
-
-	background-color: #f0f0f0;
 }
 
 .login-error{
@@ -110,6 +110,166 @@ html, body
 }
 
 .login-form button:hover
+{
+	cursor: pointer;
+
+	background-color: #009688;
+	color: white;
+
+	transition: 0.2s;
+}
+
+
+/***********************************************************************************************************************
+ * Navbar admin
+ */
+#admin-navbar
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
+
+	width: 100%;
+	height: 75px;
+
+	color: white;
+	background-color: #102027;
+
+	border-bottom: 2px solid #000a12;
+}
+
+#admin-navbar .brand
+{
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+#admin-navbar .links ul
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
+
+	list-style-type: none;
+}
+
+#admin-navbar .links ul li
+{
+	padding: 0 24px 0 24px;
+}
+
+#admin-navbar .links ul li a
+{
+	color: #52c7b8;
+	text-decoration: none;
+}
+
+#admin-navbar .links ul li a:hover
+{
+	text-decoration: underline;
+}
+
+#admin-dashboard
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+	height: auto;
+
+	margin-top: 64px;
+}
+
+#admin-dashboard-action
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: stretch;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	width: 100%;
+
+	margin-top: 32px;
+}
+
+.admin-dashboard-action-item
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+
+	width: 20%;
+
+	text-align: center;
+
+	border-radius: 8px;
+	border: 1px solid #263238;
+}
+
+.admin-dashboard-action-item p
+{
+	width: 80%;
+}
+
+.admin-dashboard-action-item a
+{
+	color: #004c40;
+	text-decoration: none;
+}
+
+.admin-dashboard-action-item a:hover
+{
+	text-decoration: underline;
+}
+
+
+/***********************************************************************************************************************
+ * Admin settings
+ */
+.settings-form
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 75%;
+
+	padding: 12px;
+
+	border: 2px solid #1c313a;
+}
+
+.settings-form input
+{
+	width: 50%;
+}
+
+.settings-form button
+{
+	align-self: flex-end;
+	justify-self: flex-end;
+
+	font-size: 1.1rem;
+	font-weight: bold;
+
+	padding: 8px 24px 8px 24px;
+	margin-top: 16px;
+
+	background-color: transparent;
+	border: none;
+	border: 3px solid #009688;
+
+	transition: 0.2s;
+}
+
+.settings-form button:hover
 {
 	cursor: pointer;
 

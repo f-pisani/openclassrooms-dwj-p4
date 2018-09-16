@@ -12,7 +12,7 @@ abstract class Model
         return $res;
     }
 
-	protected function escape_string($str)
+	public function escape_string($str)
 	{
 		return self::getMysqli()->real_escape_string($str);
 	}
