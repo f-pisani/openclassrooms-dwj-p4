@@ -113,7 +113,7 @@ class Route
 				if($routeUri->getHttpMethod() === $request_method || $routeUri->getHttpMethod() === self::REQUEST_METHOD_ANY)
 				{
 					$request = new Request($_GET, $_POST, $routeUri->getParameters());
-					
+
 					return self::executeCallback($routeUri->getControllerName().'@'.$routeUri->getControllerMethodName(), $request);
 				}
 				else
@@ -121,7 +121,7 @@ class Route
 			}
 		}
 
-		throw new RouteException("Route::execute(): uri '$uri_raw' doesn't match any registered route.");
+		throw new RouteException("Route::execute(): uri '$request_uri' doesn't match any registered route.");
 	}
 
 

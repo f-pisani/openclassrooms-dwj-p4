@@ -7,10 +7,15 @@ abstract class Model
 
     protected function rawSQL($sql)
 	{
-		$res = $mysqli->query($sql);
+		$res = self::getMysqli()->query($sql);
 
         return $res;
     }
+
+	protected function escape_string($str)
+	{
+		return self::getMysqli()->real_escape_string($str);
+	}
 
     private static function getMysqli()
 	{
@@ -21,10 +26,10 @@ abstract class Model
             $password = Config::get("DB_PWD");
 			$database = Config::get("DB_BASE");
 
-            self::$mysqli = new mysqli($host, $user, $password, $database);
+            self::$mysqli = new \mysqli($host, $user, $password, $database);
 
 			if(self::$mysqli->connect_errno)
-				throw new Exception("MySQLi : (" . self::$mysqli->connect_errno . ") " . self::$mysqli->connect_error);
+				throw new \Exception("MySQLi : (" . self::$mysqli->connect_errno . ") " . self::$mysqli->connect_error);
         }
 
         return self::$mysqli;

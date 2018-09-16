@@ -16,7 +16,7 @@ Route::get('/', 'HomeController@index');
  * BACK OFFICE
  */
 // Admin
-//Route::any('/admin', 'AdminController@index'); // Dashboard
+Route::any('/admin', 'AdminController@index'); // Dashboard
 Route::any('/admin/login', 'AdminController@login'); // Login for backoffice
 
 // Admin : Articles
