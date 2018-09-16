@@ -16,10 +16,10 @@ abstract class Model
 	{
         if(self::$mysqli === null)
 		{
-            $host = Configuration::get("db_host");
-            $user = Configuration::get("db_user");
-            $password = Configuration::get("db_password");
-			$database = Configuration::get("db_base");
+            $host = Config::get("DB_HOST");
+            $user = Config::get("DB_USER");
+            $password = Config::get("DB_PWD");
+			$database = Config::get("DB_BASE");
 
             self::$mysqli = new mysqli($host, $user, $password, $database);
 

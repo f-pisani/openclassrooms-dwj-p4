@@ -1,0 +1,106 @@
+html, body
+{
+	width: 100%;
+	height: 100%;
+
+	padding: 0;
+	margin: 0;
+
+	font-family: 'Nunito', 'Arial', sans-serif;
+	font-size: 16px;
+	color: #050505;
+}
+
+/***********************************************************************************************************************
+ * Login form
+ */
+#login-wrapper
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	background-color: #f0f0f0;
+}
+
+.login-form
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 25%;
+	height: auto;
+
+	padding: 16px;
+
+	border: 2px solid #1c313a;
+
+	background-color: white;
+}
+
+.form-row
+{
+	width: 100%;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+
+	padding: 8px 12px 8px 12px;
+}
+
+
+.form-row label
+{
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+
+.form-row input
+{
+	padding: 8px 12px 8px 12px;
+
+	border: 1px solid #718792;
+}
+
+.form-row input:focus
+{
+	border-color: #455a64;
+	outline: none;
+
+	box-shadow: 0px 0px 2px #455a64;
+}
+
+.login-form button
+{
+	align-self: flex-end;
+	justify-self: flex-end;
+
+	font-size: 1.1rem;
+	font-weight: bold;
+
+	padding: 8px 24px 8px 24px;
+	margin-top: 16px;
+
+	background-color: transparent;
+	border: none;
+	border: 3px solid #0069c0;
+
+	transition: 0.2s;
+}
+
+.login-form button:hover
+{
+	cursor: pointer;
+
+	background-color: #0069c0;
+	color: white;
+
+	transition: 0.2s;
+}
