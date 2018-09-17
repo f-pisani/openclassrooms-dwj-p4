@@ -10,7 +10,7 @@ html, body
 	font-size: 16px;
 	color: #050505;
 
-	background-color: #f0f0f0;
+	background-color: #fafafa;
 }
 
 /***********************************************************************************************************************
@@ -32,7 +32,7 @@ html, body
 	padding: 16px;
 
 	border: 2px solid #f44336;
-	background-color: white;
+	background-color: #fcfcfc;
 }
 
 .login-error b
@@ -54,7 +54,7 @@ html, body
 
 	border: 2px solid #1c313a;
 
-	background-color: white;
+	background-color: #fcfcfc;
 }
 
 .form-row
@@ -139,10 +139,18 @@ html, body
 	border-bottom: 2px solid #000a12;
 }
 
-#admin-navbar .brand
+#admin-navbar .brand a
 {
 	font-size: 1.2rem;
 	font-weight: bold;
+
+	color: white;
+	text-decoration: none;
+}
+
+#admin-navbar .brand a:hover
+{
+	text-decoration: underline;
 }
 
 #admin-navbar .links ul
@@ -232,6 +240,37 @@ html, body
 /***********************************************************************************************************************
  * Admin settings
  */
+.admin-success
+{
+	width: 75%;
+
+	padding: 16px;
+	margin: 16px;
+
+	border: 2px solid #43a047;
+	background-color: #fcfcfc;
+}
+
+.admin-success b
+{
+	color: #00701a;
+}
+
+.admin-error{
+	width: 75%;
+
+	margin: 16px;
+	padding: 16px;
+
+	border: 2px solid #f44336;
+	background-color: #fcfcfc;
+}
+
+.admin-error b
+{
+	color: #ba000d;
+}
+
 .settings-form
 {
 	display: flex;
@@ -244,6 +283,7 @@ html, body
 	padding: 12px;
 
 	border: 2px solid #1c313a;
+	background-color: #fcfcfc;
 }
 
 .settings-form input
@@ -277,4 +317,72 @@ html, body
 	color: white;
 
 	transition: 0.2s;
+}
+
+
+/***********************************************************************************************************************
+ * Admin articles dashboard
+ */
+#admin-articles
+{
+	box-sizing: border-box;
+	display: block;
+
+	padding: 18px;
+
+	width: 100%;
+}
+
+.link-btn
+{
+	align-self: flex-end;
+	justify-self: flex-end;
+
+	text-decoration: none;
+	font-size: 1.1rem;
+	font-weight: bold;
+
+	padding: 8px 24px 8px 24px;
+	margin-top: 16px;
+	color: #202020;
+
+	background-color: transparent;
+	border: none;
+	border: 3px solid #009688;
+
+	transition: 0.2s;
+}
+
+.link-btn:hover
+{
+	cursor: pointer;
+
+	background-color: #009688;
+	color: white;
+
+	transition: 0.2s;
+}
+
+#admin-articles table
+{
+	text-align: left;
+	width: 80%;
+	margin: auto;
+
+	border-collapse: collapse;
+}
+
+#admin-articles table tr td, #admin-articles table tr th
+{
+	padding: 12px;
+}
+
+#admin-articles table tr:nth-child(1)
+{
+	border-bottom: 2px solid #009688;
+}
+
+#admin-articles table tr:not(:nth-child(1))
+{
+	border-bottom: 1px solid #202020;
 }

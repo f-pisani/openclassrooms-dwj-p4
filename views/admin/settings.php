@@ -1,7 +1,7 @@
 <?php use Lib\Config; ?>
 <header id="admin-navbar">
 	<div class="brand">
-		Administration du blog - <?= $_SESSION['user_email'] ?>
+		<a href="<?= Config::get('BASE_URL')."admin" ?>">Administration du blog - <?= $_SESSION['user_email'] ?></a>
 	</div>
 
 	<nav class="links">
@@ -18,8 +18,17 @@
 	<p>Le formulaire ci-dessous vous permet de modifier votre mot de passe ou de changer le nom d'auteur des articles
 	que vous avez écrits.</p>
 	<?php
-		echo var_dump($success);
-		echo var_dump($errors);
+	if(count($success) > 0)
+	{
+		foreach($success as $title => $msg)
+			echo '<div class="admin-success"><b>'.$title.'</b><br>'.$msg.'</div>';
+	}
+
+	if(count($errors) > 0)
+	{
+		foreach($errors as $title => $msg)
+			echo '<div class="admin-error"><b>'.$title.'</b><br>'.$msg.'</div>';
+	}
 	?>
 	<form class="settings-form" action="<?= Config::get('BASE_URL')."admin/settings" ?>" method="post">
 		<div class="form-row">

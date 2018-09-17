@@ -1,7 +1,7 @@
 <?php use Lib\Config; ?>
 <header id="admin-navbar">
 	<div class="brand">
-		Administration du blog - <?= $_SESSION['user_email'] ?>
+		<a href="<?= Config::get('BASE_URL')."admin" ?>">Administration du blog - <?= $_SESSION['user_email'] ?></a>
 	</div>
 
 	<nav class="links">
