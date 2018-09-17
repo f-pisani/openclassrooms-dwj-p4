@@ -1,3 +1,3 @@
 # OCBlog
 
-P8 : OpenClassrooms
+P8 : OpenClassrooms OpenDeclic
