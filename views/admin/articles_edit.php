@@ -30,7 +30,12 @@
 	}
 	?>
 	<div id="admin-articles-editor">
-		<form class="form-editor" action="<?= Config::get('BASE_URL')."admin/articles/create" ?>" method="post">
+		<?php
+		if(isset($article_id) && !empty($article_id) && $article_id !== null)
+			echo '<form class="form-editor" action="'. Config::get('BASE_URL') .'admin/articles/edit/'. $article_id .'" method="post">';
+		else
+ 			echo '<form class="form-editor" action="'. Config::get('BASE_URL') .'admin/articles/create" method="post">';
+		?>
 			<div class="form-row">
 				<label for="title">Titre :</label>
 				<input type="text" id="title" name="title" value="<?= $article_title ?? '' ?>" placeholder="Le titre de votre article.." required>
@@ -43,7 +48,12 @@
 				<label for="publish">Publier l'article :</label>
 				<input type="checkbox" id="publish" name="publish" value="checked" <?= $article_publish ?? '' ?>>
 			</div>
-			<button class="btn" type="submit" value="Créer l'article">Créer l'article</button>
+			<?php
+			if(isset($article_id) && !empty($article_id) && $article_id !== null)
+				echo '<button class="btn" type="submit">Mettre à jour</button>';
+			else
+				echo '<button class="btn" type="submit">Créer l\'article</button>';
+			?>
 		</form>
 	</div>
 </div>

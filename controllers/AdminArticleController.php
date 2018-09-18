@@ -18,7 +18,7 @@ class AdminArticleController extends Controller
 			$request = $this->request;
 			$title = "Jean Forteroche - Gestion des articles";
 			$articles = new Article();
-			$result = $articles->getAllArticles($_SESSION['user_id']);
+			$result = $articles->getAll($_SESSION['user_id']);
 
 			$list_articles = array();
 			foreach($result as $data)
@@ -73,7 +73,7 @@ class AdminArticleController extends Controller
 					$result = $article->create($user_id, $article_title, $article_content, $article_publish);
 					if($result)
 					{
-						header('Location: '.Config::get('BASE_URL').'admin/articles/edit/'.$article->lastArticleId());
+						header('Location: '.Config::get('BASE_URL').'admin/articles/edit/'.$article->lastId());
 						exit();
 					}
 					else
@@ -102,17 +102,35 @@ class AdminArticleController extends Controller
 	 */
 	public function edit()
 	{
-		if(User::isLogged())
+		$request = $this->request;
+		if(User::isLogged() && $request->hasParameter('id'))
 		{
-			$request = $this->request;
 			$title = "Jean Forteroche - Modifier un article";
 			$errors = array();
 			$success = array();
 
+			$user_id = $_SESSION['user_id'];
+			$article = new Article();
+			$result = $article->get($user_id, $request->parameter('id'))->fetch_object();
+
+			if($result === null)
+			{
+				header('Location: '.Config::get('BASE_URL').'admin/articles');
+				exit();
+			}
+
+			$article_id = $result->id;
+			$article_title = $result->title;
+			$article_content = $result->content;
+			$article_publish = $result->published;
+			if($article_publish == 1)
+				$article_publish = 'checked';
+			else
+				$article_publish = null;
+
 			// Form create
 			if($request->hasPost('title') && $request->hasPost('article'))
 			{
-				$user_id = $_SESSION['user_id'];
 				$article_title = $request->post('title');
 				$article_content = $request->post('article');
 				$article_publish = $request->post('publish');
@@ -120,11 +138,10 @@ class AdminArticleController extends Controller
 				if(strlen($article_title) <= 512)
 				{
 					$article = new Article();
-					$result = $article->create($user_id, $article_title, $article_content, $article_publish);
+					$result = $article->update($user_id, $article_id, $article_title, $article_content, $article_publish);
 					if($result)
 					{
-						header('Location: '.Config::get('BASE_URL').'admin/edit/'.$article->lastArticleId());
-						exit();
+						$success["Article mis à jour !"] = "Les modifications ont bien étés prises en compte.";
 					}
 					else
 						$errors["Erreur lors de la création !"] = "Une erreur est survenue, veuillez réessayer.";
@@ -134,7 +151,7 @@ class AdminArticleController extends Controller
 			}
 
 			// Display articles dashboard
-			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_title', 'article_content', 'article_publish'));
+			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_id', 'article_title', 'article_content', 'article_publish'));
 		}
 		else
 		{

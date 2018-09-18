@@ -28,7 +28,7 @@ Route::any('/admin/articles/edit/{id}', 'AdminArticleController@edit')->where(['
 Route::any('/admin/articles/delete/{id}', 'AdminArticleController@delete')->where(['id' => '[0-9]+']); // Delete an article
 
 // Admin : Commentaires
-//Route::any('/admin/comments', 'AdminCommentController@index'); // Comments dashboard
-
+Route::any('/admin/comments', 'AdminCommentController@index'); // Comments dashboard
+//Route::any('/admin/comments/delete/{id}', 'AdminCommentController@delete')->where(['id' => '[0-9]+']); // Delete a comment
 
 Route::execute();

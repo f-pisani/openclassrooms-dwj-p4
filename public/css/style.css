@@ -463,3 +463,63 @@ html, body
 
 	transition: 0.2s;
 }
+
+/***********************************************************************************************************************
+ * Admin :: Comments backoffice
+ */
+#admin-comments
+{
+	box-sizing: border-box;
+	display: block;
+
+	padding: 18px;
+
+	width: 100%;
+}
+
+#admin-comments table
+{
+	text-align: left;
+	width: 80%;
+	margin: auto;
+
+	border-collapse: collapse;
+}
+
+#admin-comments table tr td, #admin-comments table tr th
+{
+	padding: 12px;
+}
+
+#admin-comments table tr td
+{
+	word-break: break-all;
+
+	vertical-align: top;
+}
+
+#admin-comments table tr:nth-child(1)
+{
+	border-bottom: 2px solid #009688;
+}
+
+#admin-comments table tr:not(:nth-child(1))
+{
+	border-bottom: 1px solid #202020;
+}
+
+.admin-comments-article
+{
+	margin-bottom: 128px;
+}
+
+.admin-comments-article .header
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+
+	width: 80%;
+	margin: auto;
+}

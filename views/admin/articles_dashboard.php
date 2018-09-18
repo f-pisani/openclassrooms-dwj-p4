@@ -21,7 +21,8 @@
 		<table>
 			<tr>
 				<th style="width: 20%;">Titre</th>
-				<th style="width: 40%;">Extrait</th>
+				<th style="width: 30%;">Extrait</th>
+				<th style="width: 10%;">Publié</th>
 				<th style="width: 15%;">Date de création</th>
 				<th style="width: 15%;">Dernière modification</th>
 				<th style="width: 5%;">Modifier</th>
@@ -32,7 +33,11 @@
 			{
 				echo '<tr>';
 				echo '<td>'. $article['title'] .'</td>';
-				echo '<td>'. substr($article['content'], 0, 128) .'...</td>';
+				echo '<td>'. substr($article['content'], 0, 128) .'..</td>';
+				if($article['published'] == 1)
+					echo '<td>Publié</td>';
+				else
+					echo '<td>Brouillon</td>';
 				echo '<td>'. date('d/m/Y H:i:s', $article['created_at']) .'</td>';
 				echo '<td>'. date('d/m/Y H:i:s', $article['updated_at']) .'</td>';
 				echo '<td><a href="'. Config::get('BASE_URL')."admin/articles/edit/".$article['id'] .'">Modifier</a></td>';
