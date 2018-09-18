@@ -5,6 +5,11 @@ abstract class Model
 {
     private static $mysqli;
 
+	public function escape_string($str)
+	{
+		return self::getMysqli()->real_escape_string($str);
+	}
+	
     protected function rawSQL($sql)
 	{
 		$res = self::getMysqli()->query($sql);
@@ -12,12 +17,7 @@ abstract class Model
         return $res;
     }
 
-	public function escape_string($str)
-	{
-		return self::getMysqli()->real_escape_string($str);
-	}
-
-    private static function getMysqli()
+    protected static function getMysqli()
 	{
         if(self::$mysqli === null)
 		{

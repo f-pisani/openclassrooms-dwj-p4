@@ -20,21 +20,26 @@
 		<a class="link-btn" href="<?= Config::get('BASE_URL')."admin/articles/create" ?>">Nouvel article</a><br><br>
 		<table>
 			<tr>
-				<th style="width: 5%;">ID</th>
 				<th style="width: 20%;">Titre</th>
 				<th style="width: 40%;">Extrait</th>
 				<th style="width: 15%;">Date de création</th>
 				<th style="width: 15%;">Dernière modification</th>
 				<th style="width: 5%;">Modifier</th>
+				<th style="width: 5%;">Supprimer</th>
 			</tr>
-			<tr>
-				<td>ID</td>
-				<td>Titre</td>
-				<td>Extrait</td>
-				<td>Date de création</td>
-				<td>Dernière modification</td>
-				<td>Modifier</td>
-			</tr>
+			<?php
+			foreach($list_articles as $article)
+			{
+				echo '<tr>';
+				echo '<td>'. $article['title'] .'</td>';
+				echo '<td>'. substr($article['content'], 0, 128) .'...</td>';
+				echo '<td>'. date('d/m/Y H:i:s', $article['created_at']) .'</td>';
+				echo '<td>'. date('d/m/Y H:i:s', $article['updated_at']) .'</td>';
+				echo '<td><a href="'. Config::get('BASE_URL')."admin/articles/edit/".$article['id'] .'">Modifier</a></td>';
+				echo '<td><a href="'. Config::get('BASE_URL')."admin/articles/delete/".$article['id'] .'">Supprimer</a></td>';
+				echo '</tr>';
+			}
+			?>
 		</table>
 	</div>
 </div>

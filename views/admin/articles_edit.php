@@ -16,21 +16,35 @@
 <div id="admin-dashboard">
 	<h1>Article : Mode éditeur</h1>
 	<p>Cet interface vous permet de rédiger vos articles et de les publier.</p>
+	<?php
+	if(count($success) > 0)
+	{
+		foreach($success as $title => $msg)
+			echo '<div class="admin-success"><b>'.$title.'</b><br>'.$msg.'</div>';
+	}
+
+	if(count($errors) > 0)
+	{
+		foreach($errors as $title => $msg)
+			echo '<div class="admin-error"><b>'.$title.'</b><br>'.$msg.'</div>';
+	}
+	?>
 	<div id="admin-articles-editor">
 		<form class="form-editor" action="<?= Config::get('BASE_URL')."admin/articles/create" ?>" method="post">
 			<div class="form-row">
 				<label for="title">Titre :</label>
-				<input type="text" id="title" name="title" placeholder="Le titre de votre article..">
+				<input type="text" id="title" name="title" value="<?= $article_title ?? '' ?>" placeholder="Le titre de votre article.." required>
 			</div>
 			<div class="form-row">
 				<label for="article">Contenu de l'article :</label>
-				<textarea id="article" name="article"></textarea>
+				<textarea id="article" name="article"><?= $article_content ?? '' ?></textarea>
 			</div>
 			<div class="form-row">
 				<label for="publish">Publier l'article :</label>
-				<input type="checkbox" id="publish" name="publish" value="publish">
+				<input type="checkbox" id="publish" name="publish" value="checked" <?= $article_publish ?? '' ?>>
 			</div>
-			<button type="submit" value="Créer l'article">Créer l'article</button>
+			<button class="btn" type="submit" value="Créer l'article">Créer l'article</button>
 		</form>
 	</div>
 </div>
+<script>tinymce.init({ width: '100%', selector:'#article' });</script>

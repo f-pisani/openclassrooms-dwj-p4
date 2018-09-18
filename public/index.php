@@ -24,7 +24,8 @@ Route::any('/admin/logout', 'AdminController@logout'); // Logout
 // Admin : Articles
 Route::any('/admin/articles', 'AdminArticleController@index'); // Articles dashboard
 Route::any('/admin/articles/create', 'AdminArticleController@create'); // Create a new article
-//Route::any('/admin/articles/{id}', 'AdminArticleController@edit'); // Edit an article
+Route::any('/admin/articles/edit/{id}', 'AdminArticleController@edit')->where(['id' => '[0-9]+']); // Edit an article
+Route::any('/admin/articles/delete/{id}', 'AdminArticleController@delete')->where(['id' => '[0-9]+']); // Delete an article
 
 // Admin : Commentaires
 //Route::any('/admin/comments', 'AdminCommentController@index'); // Comments dashboard

@@ -377,6 +377,13 @@ html, body
 	padding: 12px;
 }
 
+#admin-articles table tr td
+{
+	word-break: break-all;
+
+	vertical-align: top;
+}
+
 #admin-articles table tr:nth-child(1)
 {
 	border-bottom: 2px solid #009688;
@@ -385,4 +392,74 @@ html, body
 #admin-articles table tr:not(:nth-child(1))
 {
 	border-bottom: 1px solid #202020;
+}
+
+
+/***********************************************************************************************************************
+ * Admin editor articles
+ */
+#admin-articles-editor
+{
+	box-sizing: border-box;
+
+	width: 80%;
+	margin-bottom: 32px;
+}
+
+.form-editor
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+}
+
+.form-editor .form-row
+{
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+
+	width: 100%;
+}
+
+.form-editor .form-row label, .form-editor .form-row input:not([type="checkbox"]), .form-editor .form-row textarea
+{
+	width: 100%;
+}
+
+.form-editor .form-row textarea
+{
+	height: 300px;
+}
+
+.form-editor .btn
+{
+	align-self: flex-end;
+	justify-self: flex-end;
+
+	font-size: 1.1rem;
+	font-weight: bold;
+
+	padding: 8px 24px 8px 24px;
+	margin-top: 16px;
+
+	background-color: transparent;
+	border: none;
+	border: 3px solid #009688;
+
+	transition: 0.2s;
+}
+
+.form-editor .btn:hover
+{
+	cursor: pointer;
+
+	background-color: #009688;
+	color: white;
+
+	transition: 0.2s;
 }

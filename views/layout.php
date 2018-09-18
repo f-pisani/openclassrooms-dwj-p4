@@ -14,6 +14,7 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script type="text/javascript" src="<?= Config::get('BASE_URL').'js/script.js' ?>"></script>
+		<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 	</head>
 	<body>
 		<?= $content ?>
