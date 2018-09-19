@@ -33,12 +33,10 @@ class AdminArticleController extends Controller
 				$list_articles[$i]['updated_at'] = $data['updated_at'];
 			}
 
-			// Display articles dashboard
 			return View::view('admin/articles_dashboard', compact('request', 'title', 'list_articles'));
 		}
 		else
 		{
-			// Admin is not logged, redirect to login form
 			header('Location: '.Config::get('BASE_URL').'admin/login');
 			exit();
 		}
@@ -48,7 +46,7 @@ class AdminArticleController extends Controller
 	/*******************************************************************************************************************
 	 * public function create()
 	 *
-	 * Article creation
+	 * Allow admin to create an article
 	 */
 	public function create()
 	{
@@ -83,12 +81,10 @@ class AdminArticleController extends Controller
 					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 512 caractères.";
 			}
 
-			// Display articles dashboard
 			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_title', 'article_content', 'article_publish'));
 		}
 		else
 		{
-			// Admin is not logged, redirect to login form
 			header('Location: '.Config::get('BASE_URL').'admin/login');
 			exit();
 		}
@@ -98,7 +94,7 @@ class AdminArticleController extends Controller
 	/*******************************************************************************************************************
 	 * public function edit()
 	 *
-	 * Article edit
+	 * Allow admin to edit an article
 	 */
 	public function edit()
 	{
@@ -150,21 +146,20 @@ class AdminArticleController extends Controller
 					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 512 caractères.";
 			}
 
-			// Display articles dashboard
 			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_id', 'article_title', 'article_content', 'article_publish'));
 		}
 		else
 		{
-			// Admin is not logged, redirect to login form
 			header('Location: '.Config::get('BASE_URL').'admin/login');
 			exit();
 		}
 	}
 
+
 	/*******************************************************************************************************************
-	 * public function edit()
+	 * public function delete()
 	 *
-	 * Article edit
+	 * Delete an article
 	 */
 	public function delete()
 	{
@@ -185,7 +180,6 @@ class AdminArticleController extends Controller
 		}
 		else
 		{
-			// Admin is not logged, redirect to login form
 			header('Location: '.Config::get('BASE_URL').'admin/login');
 			exit();
 		}

@@ -1,35 +1,29 @@
-<?php use Lib\Config; ?>
-<header id="admin-navbar">
-	<div class="brand">
-		<a href="<?= Config::get('BASE_URL')."admin" ?>">Administration du blog - <?= $_SESSION['user_email'] ?></a>
-	</div>
+<?php
+use Lib\Config;
 
-	<nav class="links">
-		<ul>
-			<li><a href="<?= Config::get('BASE_URL')."admin/settings" ?>">Mon profil</a></li>
-			<li><a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a></li>
-			<li><a href="<?= Config::get('BASE_URL')."admin/comments" ?>">Gestion des commentaires</a></li>
-			<li><a href="<?= Config::get('BASE_URL')."admin/logout" ?>">Déconnexion</a></li>
-		</ul>
-	</nav>
-</header>
+include 'navbar.inc.php';
+?>
+
 <div id="admin-dashboard">
 	<h1>Gestion des commentaires</h1>
-	<p>Ici vous pouvez supprimer des commentaires.</p>
+	<p>Cette espace permet la gestion des commentaires. Les articles ne possédant pas de commentaires ne sont pas listés.</p>
+
 	<div id="admin-comments">
 	<?php
 	foreach($list_articles as $article)
 	{
+		if(count($article['comments']) > 0)
+		{
 	?>
 		<div class="admin-comments-article">
 			<div class="header"><h1><?= $article['title'] ?></h1><span><?= date('d/m/Y H:i:s', $article['created_at']) ?></span></div>
-			<table>
+			<table class="table">
 				<tr>
-					<th>Auteur</th>
-					<th>Contenu</th>
-					<th>Date</th>
-					<th>Nombre de signalements</th>
-					<th>Supprimer</th>
+					<th style="width: 20%;">Auteur</th>
+					<th style="width: 40%;">Contenu</th>
+					<th style="width: 20%;">Date</th>
+					<th style="width: 10%;">Nombre de signalements</th>
+					<th style="width: 10%;">Supprimer</th>
 				</tr>
 				<?php
 				foreach($article['comments'] as $comment)
@@ -47,6 +41,14 @@
 				?>
 			</table>
 		</div>
+	<?php
+		}
+	}
+
+	if(count($list_articles) == 0)
+	{
+	?>
+		<div class="msg-error"><b>Aucun article !</b><br>Le site ne contient aucun article.</div>
 	<?php
 	}
 	?>

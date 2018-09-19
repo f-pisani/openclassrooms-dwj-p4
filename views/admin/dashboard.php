@@ -1,42 +1,37 @@
-<?php use Lib\Config; ?>
-<header id="admin-navbar">
-	<div class="brand">
-		<a href="<?= Config::get('BASE_URL')."admin" ?>">Administration du blog - <?= $_SESSION['user_email'] ?></a>
-	</div>
+<?php
+use Lib\Config;
 
-	<nav class="links">
-		<ul>
-			<li><a href="<?= Config::get('BASE_URL')."admin/settings" ?>">Mon profil</a></li>
-			<li><a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a></li>
-			<li><a href="<?= Config::get('BASE_URL')."admin/comments" ?>">Gestion des commentaires</a></li>
-			<li><a href="<?= Config::get('BASE_URL')."admin/logout" ?>">Déconnexion</a></li>
-		</ul>
-	</nav>
-</header>
+include 'navbar.inc.php';
+?>
+
 <div id="admin-dashboard">
 	<h1>Administration du blog</h1>
-	<p>Bienvenue sur l'espace d'Administration du blog. Ici vous pouvez gérer vos articles ou encore filtrer les commentaires !</p>
-	<div id="admin-dashboard-action">
-		<div class="admin-dashboard-action-item">
+	<p>Retrouvez ci-dessous les différentes actions que vous pouvez réaliser depuis cet espace.</p>
+
+	<div id="action-list">
+		<div class="action-item">
 			<h2>Mon profil</h2>
 			<i class="fas fa-3x fa-cogs"></i>
 			<p>Permet de configurer certains paramètres liés au compte d'administration.</p>
 			<a href="<?= Config::get('BASE_URL')."admin/settings" ?>">Mon profil</a>
 		</div>
-		<div class="admin-dashboard-action-item">
+
+		<div class="action-item">
 			<h2>Gestion des articles</h2>
 			<i class="fas fa-3x fa-newspaper"></i>
 			<p>Permet de la création, l'édition ou encore la suppression d'articles.</p>
 			<a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a>
 		</div>
-		<div class="admin-dashboard-action-item">
+
+		<div class="action-item">
 			<h2>Gestion des commentaires</h2>
 			<i class="fas fa-3x fa-comments"></i>
 			<p>Permet la gestion des commentaires, visualiser les commentaires qui ont étés signalés et la possibilité
 				de les supprimer.</p>
 			<a href="<?= Config::get('BASE_URL')."admin/comments" ?>">Gestion des commentaires</a>
 		</div>
-		<div class="admin-dashboard-action-item">
+
+		<div class="action-item">
 			<h2>Déconnexion</h2>
 			<i class="fas fa-3x fa-sign-out-alt"></i>
 			<p>Permet de quitter l'espace d'administration en toute sécuritée.</p>

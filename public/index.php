@@ -5,7 +5,7 @@ require_once '../bootstrap.php';
 use Lib\Route;
 
 /***********************************************************************************************************************
- * Blog
+ * FRONT OFFICE
  */
 Route::get('/', 'HomeController@index');
 //Route::get('/articles', 'ArticleController@index');
@@ -18,17 +18,17 @@ Route::get('/', 'HomeController@index');
 // Admin
 Route::any('/admin', 'AdminController@index'); // Dashboard
 Route::any('/admin/login', 'AdminController@login'); // Login
-Route::any('/admin/settings', 'AdminController@settings'); // Settings
 Route::any('/admin/logout', 'AdminController@logout'); // Logout
+Route::any('/admin/settings', 'AdminController@settings'); // Settings
 
 // Admin : Articles
-Route::any('/admin/articles', 'AdminArticleController@index'); // Articles dashboard
-Route::any('/admin/articles/create', 'AdminArticleController@create'); // Create a new article
-Route::any('/admin/articles/edit/{id}', 'AdminArticleController@edit')->where(['id' => '[0-9]+']); // Edit an article
-Route::any('/admin/articles/delete/{id}', 'AdminArticleController@delete')->where(['id' => '[0-9]+']); // Delete an article
+Route::any('/admin/articles', 'AdminArticleController@index'); // Listing
+Route::any('/admin/articles/create', 'AdminArticleController@create'); // Create
+Route::any('/admin/articles/edit/{id}', 'AdminArticleController@edit')->where(['id' => '[0-9]+']); // Edit
+Route::any('/admin/articles/delete/{id}', 'AdminArticleController@delete')->where(['id' => '[0-9]+']); // Delete
 
-// Admin : Commentaires
-Route::any('/admin/comments', 'AdminCommentController@index'); // Comments dashboard
-//Route::any('/admin/comments/delete/{id}', 'AdminCommentController@delete')->where(['id' => '[0-9]+']); // Delete a comment
+// Admin : Comments
+Route::any('/admin/comments', 'AdminCommentController@index'); // Listing
+Route::any('/admin/comments/delete/{id}', 'AdminCommentController@delete')->where(['id' => '[0-9]+']); // Delete
 
 Route::execute();

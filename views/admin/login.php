@@ -1,23 +1,23 @@
 <?php use Lib\Config; ?>
 
 <div id="login-wrapper">
-	<?php
-		if(count($errors) > 0)
-		{
-			foreach($errors as $title => $msg)
-				echo '<div class="login-error"><b>'.$title.'</b><br>'.$msg.'</div>';
-		}
-	?>
-	<form class="login-form" action="<?= Config::get('BASE_URL').'admin/login' ?>" method="post">
-		<h1>Identification</h1>
+	<?php include 'msg.inc.php'; ?>
+
+	<form id="form-login" class="form" action="<?= Config::get('BASE_URL').'admin/login' ?>" method="post">
+		<h1>Connexion</h1>
+		<p>Accès à l'espace d'administration.</p>
+
 		<div class="form-row">
-			<label for="email">E-mail :</label>
-			<input type="email" name="email" id="email" placeholder="Votre email..">
+			<label class="label" for="email">E-mail :</label>
+			<input class="input" type="email" id="email" name="email" placeholder="martin.dupont@fai.fr" required>
 		</div>
+
 		<div class="form-row">
-			<label for="pwd">Password :</label>
-			<input type="password" name="pwd" id="pwd" placeholder="Votre mot de passe..">
+			<label class="label" for="pwd">Mot de passe :</label>
+			<input class="input" type="password" id="pwd" name="pwd" required>
 		</div>
-		<button type="submit" value="Se connecter">Se connecter</button>
+
+		<button class="btn" type="submit" value="Se connecter">Se connecter</button>
+		<p><a href="<?= Config::get('BASE_URL') ?>">Retour au site</a></p>
 	</form>
 </div>

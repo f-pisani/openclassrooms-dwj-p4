@@ -9,7 +9,7 @@ class AdminCommentController extends Controller
 	/*******************************************************************************************************************
 	 * public function index()
 	 *
-	 * Dashboard view
+	 * Comments dashboard; comments are ordered by report counter and time
 	 */
 	public function index()
 	{
@@ -46,12 +46,39 @@ class AdminCommentController extends Controller
 				}
 			}
 
-			// Display comments dashboard
 			return View::view('admin/comments_dashboard', compact('request', 'title', 'list_articles'));
 		}
 		else
 		{
-			// Admin is not logged, redirect to login form
+			header('Location: '.Config::get('BASE_URL').'admin/login');
+			exit();
+		}
+	}
+
+
+	/*******************************************************************************************************************
+	 * public function delete()
+	 *
+	 * Delete a comment
+	 */
+	public function delete()
+	{
+		if(User::isLogged())
+		{
+			$request = $this->request;
+			if($request->hasParameter('id'))
+			{
+				$comment_id = $request->parameter('id');
+
+				$comments = new Comment();
+				$comments->delete($comment_id);
+			}
+
+			header('Location: '.Config::get('BASE_URL').'admin/comments');
+			exit();
+		}
+		else
+		{
 			header('Location: '.Config::get('BASE_URL').'admin/login');
 			exit();
 		}

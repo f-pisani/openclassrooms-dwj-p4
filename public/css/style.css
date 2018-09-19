@@ -1,3 +1,6 @@
+/***********************************************************************************************************************
+ * Global
+ */
 html, body
 {
 	width: 100%;
@@ -13,51 +16,31 @@ html, body
 	background-color: #fafafa;
 }
 
-/***********************************************************************************************************************
- * Login form
- */
-#login-wrapper
+a
+{
+	text-decoration: none;
+	color: #0069c0;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+.form
 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 
-	width: 100%;
-	height: 100%;
-}
-
-.login-error{
-	margin-bottom: 16px;
 	padding: 16px;
 
-	border: 2px solid #f44336;
-	background-color: #fcfcfc;
+	border: 2px solid #00675b;
+	background-color: #fdfdfd;
 }
 
-.login-error b
-{
-	color: #ba000d;
-}
-
-.login-form
-{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	width: 25%;
-	height: auto;
-
-	padding: 16px;
-
-	border: 2px solid #1c313a;
-
-	background-color: #fcfcfc;
-}
-
-.form-row
+.form .form-row
 {
 	width: 100%;
 
@@ -69,35 +52,38 @@ html, body
 	padding: 8px 12px 8px 12px;
 }
 
-
-.form-row label
+.form .form-row .label
 {
 	font-size: 1.1rem;
 	font-weight: bold;
+
+	width: 33%;
 }
 
-.form-row input
+.form .form-row .input
 {
+	width: 66%;
 	padding: 8px 12px 8px 12px;
 
-	border: 1px solid #718792;
+	border: 1px solid #bfbfbf;
 }
 
-.form-row input:focus
+.form .form-row .input:focus
 {
-	border-color: #455a64;
+	border-color: #bcbcbc;
 	outline: none;
 
-	box-shadow: 0px 0px 2px #455a64;
+	box-shadow: 0px 0px 2px #bcbcbc;
 }
 
-.login-form button
+.form .btn
 {
 	align-self: flex-end;
 	justify-self: flex-end;
 
 	font-size: 1.1rem;
 	font-weight: bold;
+	color: #202020;
 
 	padding: 8px 24px 8px 24px;
 	margin-top: 16px;
@@ -109,7 +95,7 @@ html, body
 	transition: 0.2s;
 }
 
-.login-form button:hover
+.form .btn:hover
 {
 	cursor: pointer;
 
@@ -119,9 +105,128 @@ html, body
 	transition: 0.2s;
 }
 
+.msg-success
+{
+	width: 80%;
+
+	margin: auto;
+	margin-top: 16px;
+	margin-bottom: 16px;
+
+	padding: 16px;
+
+	border: 2px solid #43a047;
+	background-color: #fcfcfc;
+}
+
+.msg-success b
+{
+	color: #00701a;
+}
+
+.msg-error{
+	width: 80%;
+
+	margin: auto;
+	margin-top: 16px;
+	margin-bottom: 16px;
+
+	padding: 16px;
+
+	border: 2px solid #f44336;
+	background-color: #fcfcfc;
+}
+
+.msg-error b
+{
+	color: #ba000d;
+}
+
+.link-btn
+{
+	text-decoration: none;
+	font-size: 1.1rem;
+	font-weight: bold;
+
+	padding: 8px 24px 8px 24px;
+	margin-top: 16px;
+	color: #202020;
+
+	background-color: transparent;
+	border: 3px solid #009688;
+
+	transition: 0.2s;
+}
+
+.link-btn:hover
+{
+	cursor: pointer;
+	text-decoration: none;
+
+	background-color: #009688;
+	color: white;
+
+	transition: 0.2s;
+}
+
+.table
+{
+	text-align: left;
+	margin: auto;
+	margin-top: 16px;
+	margin-bottom: 16px;
+
+	border-collapse: collapse;
+}
+
+.table tr td, .table tr th
+{
+	padding: 12px;
+}
+
+.table tr td
+{
+	text-align: justify;
+	word-break: keep-all;
+
+	vertical-align: top;
+}
+
+.table tr:nth-child(1)
+{
+	border-bottom: 2px solid #009688;
+}
+
+.table tr:not(:nth-child(1)):not(:last-child)
+{
+	border-bottom: 1px solid #202020;
+}
+
 
 /***********************************************************************************************************************
- * Navbar admin
+ * Admin :: Login
+ */
+#login-wrapper
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100%;
+	height: 100%;
+
+	background-color: #eeeeee;
+}
+
+#form-login
+{
+	width: 25%;
+}
+
+
+/***********************************************************************************************************************
+ * Admin :: Navbar
  */
 #admin-navbar
 {
@@ -134,9 +239,9 @@ html, body
 	height: 75px;
 
 	color: white;
-	background-color: #102027;
+	background-color: #1c313a;
 
-	border-bottom: 2px solid #000a12;
+	border-bottom: 2px solid #102027;
 }
 
 #admin-navbar .brand a
@@ -170,7 +275,7 @@ html, body
 
 #admin-navbar .links ul li a
 {
-	color: #52c7b8;
+	color: #82e9de;
 	text-decoration: none;
 }
 
@@ -179,6 +284,10 @@ html, body
 	text-decoration: underline;
 }
 
+
+/***********************************************************************************************************************
+ * Admin :: Dashboard
+ */
 #admin-dashboard
 {
 	display: flex;
@@ -192,7 +301,7 @@ html, body
 	margin-top: 64px;
 }
 
-#admin-dashboard-action
+#admin-dashboard #action-list
 {
 	display: flex;
 	justify-content: space-around;
@@ -205,7 +314,7 @@ html, body
 	margin-top: 32px;
 }
 
-.admin-dashboard-action-item
+#admin-dashboard #action-list .action-item
 {
 	display: flex;
 	justify-content: space-around;
@@ -220,292 +329,98 @@ html, body
 	border: 1px solid #263238;
 }
 
-.admin-dashboard-action-item p
+#admin-dashboard #action-list .action-item p
 {
 	width: 80%;
 }
 
-.admin-dashboard-action-item a
-{
-	color: #004c40;
-	text-decoration: none;
-}
-
-.admin-dashboard-action-item a:hover
-{
-	text-decoration: underline;
-}
-
 
 /***********************************************************************************************************************
- * Admin settings
+ * Admin :: Settings
  */
-.admin-success
+
+#form-settings
 {
 	width: 75%;
-
-	padding: 16px;
-	margin: 16px;
-
-	border: 2px solid #43a047;
-	background-color: #fcfcfc;
-}
-
-.admin-success b
-{
-	color: #00701a;
-}
-
-.admin-error{
-	width: 75%;
-
-	margin: 16px;
-	padding: 16px;
-
-	border: 2px solid #f44336;
-	background-color: #fcfcfc;
-}
-
-.admin-error b
-{
-	color: #ba000d;
-}
-
-.settings-form
-{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	width: 75%;
-
-	padding: 12px;
-
-	border: 2px solid #1c313a;
-	background-color: #fcfcfc;
-}
-
-.settings-form input
-{
-	width: 50%;
-}
-
-.settings-form button
-{
-	align-self: flex-end;
-	justify-self: flex-end;
-
-	font-size: 1.1rem;
-	font-weight: bold;
-
-	padding: 8px 24px 8px 24px;
-	margin-top: 16px;
-
-	background-color: transparent;
-	border: none;
-	border: 3px solid #009688;
-
-	transition: 0.2s;
-}
-
-.settings-form button:hover
-{
-	cursor: pointer;
-
-	background-color: #009688;
-	color: white;
-
-	transition: 0.2s;
 }
 
 
 /***********************************************************************************************************************
- * Admin articles dashboard
+ * Admin :: Articles dashboard
  */
 #admin-articles
 {
 	box-sizing: border-box;
 	display: block;
 
-	padding: 18px;
-
-	width: 100%;
-}
-
-.link-btn
-{
-	align-self: flex-end;
-	justify-self: flex-end;
-
-	text-decoration: none;
-	font-size: 1.1rem;
-	font-weight: bold;
-
-	padding: 8px 24px 8px 24px;
-	margin-top: 16px;
-	color: #202020;
-
-	background-color: transparent;
-	border: none;
-	border: 3px solid #009688;
-
-	transition: 0.2s;
-}
-
-.link-btn:hover
-{
-	cursor: pointer;
-
-	background-color: #009688;
-	color: white;
-
-	transition: 0.2s;
-}
-
-#admin-articles table
-{
-	text-align: left;
 	width: 80%;
+
 	margin: auto;
-
-	border-collapse: collapse;
+	padding: 18px;
 }
 
-#admin-articles table tr td, #admin-articles table tr th
-{
-	padding: 12px;
-}
-
-#admin-articles table tr td
-{
-	word-break: break-all;
-
-	vertical-align: top;
-}
-
-#admin-articles table tr:nth-child(1)
-{
-	border-bottom: 2px solid #009688;
-}
-
-#admin-articles table tr:not(:nth-child(1))
-{
-	border-bottom: 1px solid #202020;
-}
+.table .table-col-article{ width: 55%; }
+.table .table-col-statut{ width: 5%; }
+.table .table-col-createdat{ width: 15%; }
+.table .table-col-updatedat{ width: 15%; }
+.table .table-col-edit{ width: 5%; }
+.table .table-col-delete{ width: 5%; }
 
 
 /***********************************************************************************************************************
- * Admin editor articles
+ * Admin :: Articles editor
  */
-#admin-articles-editor
+#admin-articleEditor
 {
 	box-sizing: border-box;
 
 	width: 80%;
+
 	margin-bottom: 32px;
 }
 
-.form-editor
+#form-articleEditor .form-row:not(:last-of-type)
 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	width: 100%;
-}
-
-.form-editor .form-row
-{
-	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: flex-start;
 	flex-direction: column;
-
-	width: 100%;
 }
 
-.form-editor .form-row label, .form-editor .form-row input:not([type="checkbox"]), .form-editor .form-row textarea
+#form-articleEditor .form-row:last-of-type
 {
-	width: 100%;
+	justify-content: flex-start;
 }
 
-.form-editor .form-row textarea
+#form-articleEditor .form-row:last-of-type .label, #form-articleEditor .form-row:last-of-type .input
+{
+	width: auto;
+}
+
+#form-articleEditor .form-row:not(:last-of-type) .label, #form-articleEditor .form-row:not(:last-of-type) .input
+{
+	box-sizing: border-box;
+	width: 100%;
+
+	margin: 4px;
+}
+
+#form-articleEditor [name="article"]
 {
 	height: 300px;
 }
 
-.form-editor .btn
-{
-	align-self: flex-end;
-	justify-self: flex-end;
-
-	font-size: 1.1rem;
-	font-weight: bold;
-
-	padding: 8px 24px 8px 24px;
-	margin-top: 16px;
-
-	background-color: transparent;
-	border: none;
-	border: 3px solid #009688;
-
-	transition: 0.2s;
-}
-
-.form-editor .btn:hover
-{
-	cursor: pointer;
-
-	background-color: #009688;
-	color: white;
-
-	transition: 0.2s;
-}
 
 /***********************************************************************************************************************
- * Admin :: Comments backoffice
+ * Admin :: Comments
  */
 #admin-comments
 {
 	box-sizing: border-box;
-	display: block;
 
-	padding: 18px;
-
-	width: 100%;
-}
-
-#admin-comments table
-{
-	text-align: left;
 	width: 80%;
+
 	margin: auto;
-
-	border-collapse: collapse;
-}
-
-#admin-comments table tr td, #admin-comments table tr th
-{
-	padding: 12px;
-}
-
-#admin-comments table tr td
-{
-	word-break: break-all;
-
-	vertical-align: top;
-}
-
-#admin-comments table tr:nth-child(1)
-{
-	border-bottom: 2px solid #009688;
-}
-
-#admin-comments table tr:not(:nth-child(1))
-{
-	border-bottom: 1px solid #202020;
+	padding: 18px;
 }
 
 .admin-comments-article
@@ -520,6 +435,5 @@ html, body
 	align-items: center;
 	flex-direction: row;
 
-	width: 80%;
 	margin: auto;
 }

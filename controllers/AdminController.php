@@ -9,7 +9,7 @@ class AdminController extends Controller
 	/*******************************************************************************************************************
 	 * public function index()
 	 *
-	 * Dashboard view
+	 * Back office dashboard
 	 */
 	public function index()
 	{
@@ -18,7 +18,6 @@ class AdminController extends Controller
 			$request = $this->request;
 			$title = "Jean Forteroche - Administration du blog";
 
-			// Display admin dashboard
 			return View::view('admin/dashboard', compact('request', 'title'));
 		}
 		else
@@ -33,7 +32,7 @@ class AdminController extends Controller
 	/*******************************************************************************************************************
 	 * public function login()
 	 *
-	 * Display and handle admin login form
+	 * Login form, allow admin to connect safely to the back office
 	 */
 	public function login()
 	{
@@ -43,7 +42,6 @@ class AdminController extends Controller
 			$title = "Jean Forteroche - Connexion";
 			$errors = array();
 
-			// Traitement formulaire de connexion
 			if($request->hasPost('email') && $request->hasPost('pwd'))
 			{
 				$email = $request->post('email');
@@ -52,23 +50,17 @@ class AdminController extends Controller
 				$user = new User();
 				if($user->auth($email, $pwd))
 				{
-					// Auth success ; Redirect to admin dashboard
 					header('Location: '.Config::get('BASE_URL').'admin');
 					exit();
 				}
 				else
-				{
-					// Auth failure ; Display error message
-					$errors["Connexion impossible !"] = "Identifiants invalides, vérifiez que vous avez les droits nécessaires.";
-				}
+					$errors["Connexion impossible !"] = "Identifiants invalides. Cet espace est réservé à l'administrateur du site.";
 			}
 
-			// Display admin login form
 			return View::view('admin/login', compact('request', 'title', 'errors'));
 		}
 		else
 		{
-			// Admin is already logged, redirect to admin dashboard
 			header('Location: '.Config::get('BASE_URL').'admin');
 			exit();
 		}
@@ -78,7 +70,7 @@ class AdminController extends Controller
 	/*******************************************************************************************************************
 	 * public function settings()
 	 *
-	 * Display settings view
+	 * Settings page, allow admin to edit his profile
 	 */
 	public function settings()
 	{
@@ -91,7 +83,7 @@ class AdminController extends Controller
 			$user = new User();
 			$user_id = $_SESSION['user_id'];
 
-			// Form : Changes password
+			// Changes password requested
 			if($request->hasPost('pwd_current') && $request->hasPost('pwd_new') && $request->hasPost('pwd_new_conf'))
 			{
 				$pwd_current = $user->escape_string($request->post('pwd_current'));
@@ -125,7 +117,7 @@ class AdminController extends Controller
 					$errors["Mot de passe erroné !"] = "Le mot de passe actuel ne correspond pas au mot de passe saisi.";
 			}
 
-			// Form : Changes display name
+			// Changes display name requested
 			if($request->hasPost('display_name') && $request->post('display_name') !== $_SESSION['user_displayName'])
 			{
 				$display_name = $request->post('display_name');
@@ -146,7 +138,6 @@ class AdminController extends Controller
 					 des espaces ou des tirets. De plus il ne peut être plus grand que 256 caractères.";
 			}
 
-			// Display settings view
 			return View::view('admin/settings', compact('request', 'title', 'success', 'errors'));
 		}
 		else
@@ -160,16 +151,17 @@ class AdminController extends Controller
 	/*******************************************************************************************************************
 	 * public function logout()
 	 *
-	 * Logout
+	 * Disconnect from the back office
 	 */
 	public function logout()
 	{
 		if(User::isLogged())
 		{
+			// Session is cleared
 			session_unset();
 			session_destroy();
 		}
-
+		
 		header('Location: '.Config::get('BASE_URL').'admin/login');
 		exit();
 	}
