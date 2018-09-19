@@ -437,3 +437,8 @@ a:hover
 
 	margin: auto;
 }
+
+.table .table-col-comment{ width: 60%; }
+.table .table-col-date{ width: 20%; }
+.table .table-col-report{ width: 10%; }
+.table .table-col-delete{ width: 10%; }

@@ -19,19 +19,17 @@ include 'navbar.inc.php';
 			<div class="header"><h1><?= $article['title'] ?></h1><span><?= date('d/m/Y H:i:s', $article['created_at']) ?></span></div>
 			<table class="table">
 				<tr>
-					<th style="width: 20%;">Auteur</th>
-					<th style="width: 40%;">Contenu</th>
-					<th style="width: 20%;">Date</th>
-					<th style="width: 10%;">Nombre de signalements</th>
-					<th style="width: 10%;">Supprimer</th>
+					<th class="table-col-comment">Commentaire</th>
+					<th class="table-col-date">Date</th>
+					<th class="table-col-report">Nombre de signalements</th>
+					<th class="table-col-delete">Supprimer</th>
 				</tr>
 				<?php
 				foreach($article['comments'] as $comment)
 				{
 				?>
 				<tr>
-					<td><?= $comment['nickname'] ?></td>
-					<td><?= $comment['content'] ?></td>
+					<td><b><?= $comment['nickname'] ?></b><br><?= $comment['content'] ?></td>
 					<td><?= date('d/m/Y H:i:s', $comment['created_at']) ?></td>
 					<td><?= $comment['reported_counter'] ?></td>
 					<td><a href="<?= Config::get('BASE_URL')."admin/comments/delete/".$comment['id'] ?>">Supprimer</a></td>
