@@ -438,7 +438,23 @@ a:hover
 	margin: auto;
 }
 
-.table .table-col-comment{ width: 60%; }
-.table .table-col-date{ width: 20%; }
-.table .table-col-report{ width: 10%; }
-.table .table-col-delete{ width: 10%; }
+#admin-comments .table tr td
+{
+	text-align: justify;
+	word-break: keep-all;
+
+	vertical-align: middle;
+
+	padding: 24px;
+}
+
+#admin-comments .table .table-col-title{ width: 30%; }
+#admin-comments .table .table-col-createdat{ width: 20%; }
+#admin-comments .table .table-col-commentsCount{ width: 10%; }
+#admin-comments .table .table-col-commentsReported{ width: 10%; }
+#admin-comments .table .table-col-show{ width: 30%; }
+
+#admin-comments .table .table-col-comment{ width: 60%; }
+#admin-comments .table .table-col-date{ width: 20%; }
+#admin-comments .table .table-col-report{ width: 10%; }
+#admin-comments .table .table-col-delete{ width: 10%; }
