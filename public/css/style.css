@@ -458,3 +458,96 @@ a:hover
 #admin-comments .table .table-col-date{ width: 20%; }
 #admin-comments .table .table-col-report{ width: 10%; }
 #admin-comments .table .table-col-delete{ width: 10%; }
+
+
+/***********************************************************************************************************************
+ * Homepage
+ */
+#alaska-header
+{
+	width: 100%;
+	height: 400px;
+
+	overflow: hidden;
+}
+
+#alaska-header img
+{
+	position: sticky;
+
+	width: 100%;
+	object-fit: cover;
+}
+
+#blog h1
+{
+	width: 100%;
+
+	text-align: center;
+}
+
+#blog #articles-list
+{
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	width: 100%;
+
+	margin-bottom: 32px;
+}
+
+.articles-list-item
+{
+	box-sizing: border-box;
+
+	width: 45%;
+
+	padding: 32px;
+	margin: 32px;
+}
+
+.articles-list-item .title
+{
+	width: 100%;
+
+	text-align: center;
+}
+
+.articles-list-item .fa-bookmark
+{
+	width: 100%;
+
+	margin: 24px;
+
+	text-align: center;
+}
+
+.articles-list-item .footer
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+}
+
+/***********************************************************************************************************************
+ * Footer
+ */
+#footer
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: row;
+
+	width: 100%;
+	height: 75px;
+
+	color: white;
+	background-color: #1c313a;
+
+	border-top: 2px solid #102027;
+}

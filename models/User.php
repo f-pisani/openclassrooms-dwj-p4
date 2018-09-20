@@ -30,16 +30,21 @@ class User extends Model
 
 	public function updatePassword($user_id, $pwd_new)
 	{
-		return $this->rawSQL("UPDATE users SET password = '$pwd_new' WHERE id = $user_id");
+		return $this->rawSQL("UPDATE users SET password = '$pwd_new' WHERE id = '$user_id'");
 	}
 
 	public function updateDisplayName($user_id, $display_name)
 	{
-		return $this->rawSQL("UPDATE users SET display_name = '$display_name' WHERE id = $user_id");
+		return $this->rawSQL("UPDATE users SET display_name = '$display_name' WHERE id = '$user_id'");
 	}
 
 	public static function isLogged()
 	{
 		return (isset($_SESSION['user_id']) && !empty($_SESSION['user_id']));
+	}
+
+	public function getDisplayName($user_id)
+	{
+		return $this->rawSQL("SELECT display_name FROM users WHERE id = '$user_id'")->fetch_assoc()['display_name'];
 	}
 }

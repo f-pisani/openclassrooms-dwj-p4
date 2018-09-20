@@ -7,6 +7,7 @@
 
 	<nav class="links">
 		<ul>
+			<li><a href="<?= Config::get('BASE_URL') ?>">Retour au blog</a></li>
 			<li><a href="<?= Config::get('BASE_URL')."admin/settings" ?>">Mon profil</a></li>
 			<li><a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a></li>
 			<li><a href="<?= Config::get('BASE_URL')."admin/comments" ?>">Gestion des commentaires</a></li>

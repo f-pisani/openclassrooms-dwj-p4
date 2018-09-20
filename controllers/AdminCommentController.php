@@ -19,7 +19,7 @@ class AdminCommentController extends Controller
 			$title = "Jean Forteroche - Gestion des commentaires";
 			$articles = new Article();
 			$comments = new Comment();
-			$result_articles = $articles->getAll($_SESSION['user_id']);
+			$result_articles = $articles->getAllByUserId($_SESSION['user_id']);
 
 			$list_articles = array();
 			foreach($result_articles as $article)
@@ -73,7 +73,7 @@ class AdminCommentController extends Controller
 			$title = "Jean Forteroche - Gestion des commentaires";
 			$articles = new Article();
 			$comments = new Comment();
-			$result_articles = $articles->get($_SESSION['user_id'], $request->parameter('id'));
+			$result_articles = $articles->getByUserId($_SESSION['user_id'], $request->parameter('id'));
 
 			if($result_articles == null || $result_articles->num_rows == 0)
 			{

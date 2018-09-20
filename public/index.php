@@ -8,7 +8,6 @@ use Lib\Route;
  * FRONT OFFICE
  */
 Route::get('/', 'HomeController@index');
-//Route::get('/articles', 'ArticleController@index');
 //Route::get('/articles/{id}', 'ArticleController@show')->where(['id' => '[0-9]+']);
 
 

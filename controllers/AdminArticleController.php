@@ -18,7 +18,7 @@ class AdminArticleController extends Controller
 			$request = $this->request;
 			$title = "Jean Forteroche - Gestion des articles";
 			$articles = new Article();
-			$result = $articles->getAll($_SESSION['user_id']);
+			$result = $articles->getAllByUserId($_SESSION['user_id']);
 
 			$list_articles = array();
 			foreach($result as $data)
@@ -107,7 +107,7 @@ class AdminArticleController extends Controller
 
 			$user_id = $_SESSION['user_id'];
 			$article = new Article();
-			$result = $article->get($user_id, $request->parameter('id'))->fetch_object();
+			$result = $article->getByUserId($user_id, $request->parameter('id'))->fetch_object();
 
 			if($result === null)
 			{

@@ -52,18 +52,30 @@ class Article extends Model
 		return $this->getMysqli()->insert_id;
 	}
 
-	public function getAll($user_id)
+	public function getAllByUserId($user_id)
 	{
 		$user_id = $this->escape_string($user_id);
 
 		return $this->rawSQL("SELECT * FROM posts WHERE user_id = '$user_id' ORDER BY created_at DESC");
 	}
 
-	public function get($user_id, $article_id)
+	public function getByUserId($user_id, $article_id)
 	{
 		$user_id = $this->escape_string($user_id);
 		$article_id = $this->escape_string($article_id);
 
 		return $this->rawSQL("SELECT * FROM posts WHERE user_id = '$user_id' AND id = '$article_id'");
+	}
+
+	public function getAll()
+	{
+		return $this->rawSQL("SELECT * FROM posts WHERE published = 1 ORDER BY created_at DESC");
+	}
+
+	public function get($article_id)
+	{
+		$article_id = $this->escape_string($article_id);
+
+		return $this->rawSQL("SELECT * FROM posts WHERE published = 1 AND id = '$article_id'");
 	}
 }
