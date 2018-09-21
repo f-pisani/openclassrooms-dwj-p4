@@ -27,6 +27,11 @@ a:hover
 	text-decoration: underline;
 }
 
+input, textarea
+{
+	font-family: 'Nunito', 'Arial', sans-serif;
+}
+
 .form
 {
 	display: flex;
@@ -532,6 +537,81 @@ a:hover
 	align-items: center;
 	flex-direction: row;
 }
+
+
+/***********************************************************************************************************************
+ * Article
+ */
+#blog #post
+{
+	width: 80%;
+
+	padding: 32px;
+	margin: auto;
+}
+
+#blog #post .footer
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+}
+
+#blog #comments
+{
+	width: 60%;
+
+	padding: 32px;
+	margin: auto;
+}
+
+#blog #comments #form-comment .form-row:last-of-type
+{
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+#blog #comments #form-comment .form-row:last-of-type *
+{
+	box-sizing: border-box;
+	resize: vertical;
+
+	width: 100%;
+
+	padding: 12px 0 12px 0;
+}
+
+#blog #comments #form-comment .form-row:last-of-type textarea
+{
+	padding: 12px 8px 12px 8px;
+}
+
+#blog #comments .comment
+{
+	margin: 24px 0 24px 0;
+}
+
+#blog #comments .comment .author
+{
+	font-weight: bold;
+}
+
+
+/***********************************************************************************************************************
+ * Error 404
+ */
+#error404
+{
+	width: 50%;
+	height: 100%;
+
+	margin: auto;
+
+	text-align: center;
+}
+
 
 /***********************************************************************************************************************
  * Footer

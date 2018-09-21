@@ -7,8 +7,10 @@ use Lib\Route;
 /***********************************************************************************************************************
  * FRONT OFFICE
  */
-Route::get('/', 'HomeController@index');
-//Route::get('/articles/{id}', 'ArticleController@show')->where(['id' => '[0-9]+']);
+Route::any('/', 'HomeController@index');
+Route::any('/articles/{id}', 'HomeController@show')->where(['id' => '[0-9]+']);
+Route::any('/report/{article_id}/{comment_id}', 'HomeController@report')->where(['article_id' => '[0-9]+', 'comment_id' => '[0-9]+']);
+Route::error404('HomeController@error404');
 
 
 /***********************************************************************************************************************

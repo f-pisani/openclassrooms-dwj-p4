@@ -6,6 +6,7 @@ class RouteException extends \Exception {};
 class Route
 {
 	private static $routes = array(); // Contains all registered routes
+	private static $route_404 = null;
 
 
 	const REQUEST_METHOD_GET = 'GET'; // HTTP REQUEST_METHOD Get
@@ -96,6 +97,21 @@ class Route
 
 
 	/*******************************************************************************************************************
+	 * public static function error404($callback)
+	 *
+	 * $callback : Controller@Method (Callback will be called if the route match the current URI)
+	 *
+	 * Register a route for error 404.
+	 *
+	 * Return : RouteUri object.
+	 */
+	public static function error404($callback)
+	{
+		self::$route_404 = new RouteUri(self::REQUEST_METHOD_ANY, '', $callback);
+	}
+
+
+	/*******************************************************************************************************************
 	 * public static function execute()
 	 *
 	 * Based on $_SERVER['REQUEST_METHOD'] and $_SERVER['REQUEST_URI'] this method will look for a registered route to
@@ -113,7 +129,6 @@ class Route
 				if($routeUri->getHttpMethod() === $request_method || $routeUri->getHttpMethod() === self::REQUEST_METHOD_ANY)
 				{
 					$request = new Request($_GET, $_POST, $routeUri->getParameters());
-
 					return self::executeCallback($routeUri->getControllerName().'@'.$routeUri->getControllerMethodName(), $request);
 				}
 				else
@@ -121,7 +136,13 @@ class Route
 			}
 		}
 
-		throw new RouteException("Route::execute(): uri '$request_uri' doesn't match any registered route.");
+		if(self::$route_404 !== null)
+		{
+			$request = new Request($_GET, $_POST, $routeUri->getParameters());
+			return self::executeCallback(self::$route_404->getControllerName().'@'.self::$route_404->getControllerMethodName(), $request);
+		}
+		else
+			throw new RouteException("Route::execute(): uri '$request_uri' doesn't match any registered route.");
 	}
 
 

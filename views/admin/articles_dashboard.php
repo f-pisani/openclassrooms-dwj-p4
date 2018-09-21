@@ -34,7 +34,7 @@ include 'navbar.inc.php';
 			{
 			?>
 			<tr>
-				<td><b><?= $article['title'] ?></b><br><?= substr($article['content'], 0, 256) ?>..</td>
+				<td><b><?= $article['title'] ?></b><br><?= substr(strip_tags($article['content']), 0, 256) ?>..</td>
 				<td><?= ($article['published'] == 1) ? 'Publié' : 'Brouillon' ?></td>
 				<td><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
 				<td><?= date('d/m/Y H:i:s', $article['updated_at']) ?></td>
