@@ -7,10 +7,15 @@ use Lib\Route;
 /***********************************************************************************************************************
  * FRONT OFFICE
  */
+Route::error404('HomeController@error404');
 Route::any('/', 'HomeController@index');
+Route::any('/register', 'AuthController@register');
+Route::any('/login', 'AuthController@login');
+Route::any('/profil', 'AuthController@profil');
+Route::any('/logout', 'AuthController@logout');
 Route::any('/articles/{id}', 'HomeController@show')->where(['id' => '[0-9]+']);
 Route::any('/report/{article_id}/{comment_id}', 'HomeController@report')->where(['article_id' => '[0-9]+', 'comment_id' => '[0-9]+']);
-Route::error404('HomeController@error404');
+
 
 
 /***********************************************************************************************************************
@@ -18,9 +23,6 @@ Route::error404('HomeController@error404');
  */
 // Admin
 Route::any('/admin', 'AdminController@index'); // Dashboard
-Route::any('/admin/login', 'AdminController@login'); // Login
-Route::any('/admin/logout', 'AdminController@logout'); // Logout
-Route::any('/admin/settings', 'AdminController@settings'); // Settings
 
 // Admin : Articles
 Route::any('/admin/articles', 'AdminArticleController@index'); // Listing

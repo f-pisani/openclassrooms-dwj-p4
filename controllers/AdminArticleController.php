@@ -13,10 +13,10 @@ class AdminArticleController extends Controller
 	 */
 	public function index()
 	{
-		if(User::isLogged())
+		if(User::isLogged() && User::role() == 'admin')
 		{
 			$request = $this->request;
-			$title = "Jean Forteroche - Gestion des articles";
+			$title = "Billet simple pour l'Alaska - Gestion des articles";
 			$articles = new Article();
 			$result = $articles->getAllByUserId($_SESSION['user_id']);
 
@@ -35,11 +35,9 @@ class AdminArticleController extends Controller
 
 			return View::view('admin/articles_dashboard', compact('request', 'title', 'list_articles'));
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 
 
@@ -50,10 +48,10 @@ class AdminArticleController extends Controller
 	 */
 	public function create()
 	{
-		if(User::isLogged())
+		if(User::isLogged() && User::role() == 'admin')
 		{
 			$request = $this->request;
-			$title = "Jean Forteroche - Nouvel article";
+			$title = "Billet simple pour l'Alaska - Nouvel article";
 			$errors = array();
 			$success = array();
 
@@ -83,11 +81,9 @@ class AdminArticleController extends Controller
 
 			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_title', 'article_content', 'article_publish'));
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 
 
@@ -99,9 +95,9 @@ class AdminArticleController extends Controller
 	public function edit()
 	{
 		$request = $this->request;
-		if(User::isLogged() && $request->hasParameter('id'))
+		if(User::isLogged() && User::role() == 'admin' && $request->hasParameter('id'))
 		{
-			$title = "Jean Forteroche - Modifier un article";
+			$title = "Billet simple pour l'Alaska - Modifier un article";
 			$errors = array();
 			$success = array();
 
@@ -148,11 +144,9 @@ class AdminArticleController extends Controller
 
 			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_id', 'article_title', 'article_content', 'article_publish'));
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 
 
@@ -163,7 +157,7 @@ class AdminArticleController extends Controller
 	 */
 	public function delete()
 	{
-		if(User::isLogged())
+		if(User::isLogged() && User::role() == 'admin')
 		{
 			$request = $this->request;
 			if($request->hasParameter('id'))
@@ -178,10 +172,8 @@ class AdminArticleController extends Controller
 			header('Location: '.Config::get('BASE_URL').'admin/articles');
 			exit();
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 }

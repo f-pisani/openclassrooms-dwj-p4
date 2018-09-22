@@ -9,6 +9,4 @@ abstract class Controller
 	{
 		$this->request = $request;
 	}
-
-    public abstract function index();
 }

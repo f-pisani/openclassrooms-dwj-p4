@@ -207,29 +207,6 @@ input, textarea
 	border-bottom: 1px solid #202020;
 }
 
-
-/***********************************************************************************************************************
- * Admin :: Login
- */
-#login-wrapper
-{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	width: 100%;
-	height: 100%;
-
-	background-color: #eeeeee;
-}
-
-#form-login
-{
-	width: 25%;
-}
-
-
 /***********************************************************************************************************************
  * Admin :: Navbar
  */
@@ -474,6 +451,8 @@ input, textarea
 	height: 400px;
 
 	overflow: hidden;
+
+	margin-bottom: 32px;
 }
 
 #alaska-header img
@@ -488,6 +467,11 @@ input, textarea
 {
 	width: 100%;
 
+	text-align: center;
+}
+
+#blog h1~p
+{
 	text-align: center;
 }
 
@@ -542,12 +526,36 @@ input, textarea
 /***********************************************************************************************************************
  * Article
  */
-#blog #post
+#blog #post, #blog #comments
 {
-	width: 80%;
+	width: 50%;
 
 	padding: 32px;
 	margin: auto;
+
+}
+
+#blog #post .title, #blog #comments .title
+{
+	margin-bottom: 64px;
+
+	text-align: left;
+}
+
+#blog #post .title::before, #blog #comments .title::before
+{
+	content: "";
+
+	width: 100%;
+	height: 100%;
+
+	margin-left: -42px;
+	border-left: 6px solid #009688;
+}
+
+#blog #post .content
+{
+	text-align: justify;
 }
 
 #blog #post .footer
@@ -556,14 +564,6 @@ input, textarea
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: row;
-}
-
-#blog #comments
-{
-	width: 60%;
-
-	padding: 32px;
-	margin: auto;
 }
 
 #blog #comments #form-comment .form-row:last-of-type
@@ -588,16 +588,36 @@ input, textarea
 	padding: 12px 8px 12px 8px;
 }
 
+#blog #comments
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+#blog #comments p
+{
+	align-self: flex-start;
+}
+
 #blog #comments .comment
 {
+	width: 100%;
+
 	margin: 24px 0 24px 0;
+
+	padding-left: 12px;
+	border-left: 3px solid #26a69a;
 }
 
-#blog #comments .comment .author
+
+#blog #comments #showMoreComments
 {
-	font-weight: bold;
-}
+	display: inline-block;
 
+	margin: auto;
+}
 
 /***********************************************************************************************************************
  * Error 404
@@ -626,8 +646,32 @@ input, textarea
 	width: 100%;
 	height: 75px;
 
+	margin-top: 32px;
+
 	color: white;
 	background-color: #1c313a;
 
 	border-top: 2px solid #102027;
 }
+
+
+/***********************************************************************************************************************
+ * Register
+ */
+#form-register
+{
+	width: 50%;
+
+	margin: auto;
+}
+
+
+/***********************************************************************************************************************
+ * Login
+ */
+ #form-login
+ {
+ 	width: 50%;
+
+	margin: auto;
+ }

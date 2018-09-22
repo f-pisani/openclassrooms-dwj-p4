@@ -6,12 +6,11 @@ include 'navbar.inc.php';
 
 <div id="admin-dashboard">
 	<h1>Mon profil</h1>
-	<p>Le formulaire ci-dessous vous permet de modifier votre mot de passe ou de changer le nom d'auteur des articles
-	que vous avez écrits.</p>
+	<p>Le formulaire ci-dessous vous permet de modifier votre mot de passe ou de changer votre pseudonyme.</p>
 
-	<?php include 'msg.inc.php'; ?>
+	<?php include 'admin/msg.inc.php'; ?>
 
-	<form id="form-settings" class="form" action="<?= Config::get('BASE_URL')."admin/settings" ?>" method="post">
+	<form id="form-settings" class="form" action="<?= Config::get('BASE_URL').'profil' ?>" method="post">
 		<div class="form-row">
 			<label class="label" for="email">Email :</label>
 			<input class="input" type="email" id="email" name="email" value="<?= $_SESSION['user_email'] ?>" disabled>
@@ -39,3 +38,5 @@ include 'navbar.inc.php';
 		<button class="btn" type="submit" value="Modifier">Modifier</button>
 	</form>
 </div>
+
+<?php include 'footer.inc.php'; ?>

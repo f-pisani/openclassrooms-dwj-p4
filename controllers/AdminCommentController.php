@@ -13,10 +13,10 @@ class AdminCommentController extends Controller
 	 */
 	public function index()
 	{
-		if(User::isLogged())
+		if(User::isLogged() && in_array(User::role(), ['admin', 'mod']))
 		{
 			$request = $this->request;
-			$title = "Jean Forteroche - Gestion des commentaires";
+			$title = "Billet simple pour l'Alaska - Gestion des commentaires";
 			$articles = new Article();
 			$comments = new Comment();
 			$result_articles = $articles->getAllByUserId($_SESSION['user_id']);
@@ -52,11 +52,9 @@ class AdminCommentController extends Controller
 
 			return View::view('admin/comments_dashboard', compact('request', 'title', 'list_articles'));
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 
 
@@ -68,9 +66,9 @@ class AdminCommentController extends Controller
 	public function list()
 	{
 		$request = $this->request;
-		if(User::isLogged() && $request->hasParameter('id'))
+		if(User::isLogged() && in_array(User::role(), ['admin', 'mod']) && $request->hasParameter('id'))
 		{
-			$title = "Jean Forteroche - Gestion des commentaires";
+			$title = "Billet simple pour l'Alaska - Gestion des commentaires";
 			$articles = new Article();
 			$comments = new Comment();
 			$result_articles = $articles->getByUserId($_SESSION['user_id'], $request->parameter('id'));
@@ -120,11 +118,9 @@ class AdminCommentController extends Controller
 
 			return View::view('admin/comments_listing', compact('request', 'title', 'list_articles'));
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 
 
@@ -136,7 +132,7 @@ class AdminCommentController extends Controller
 	public function delete()
 	{
 		$request = $this->request;
-		if(User::isLogged() && $request->hasParameter('id') && $request->hasParameter('article_id'))
+		if(User::isLogged() && in_array(User::role(), ['admin', 'mod']) && $request->hasParameter('id') && $request->hasParameter('article_id'))
 		{
 			$comment_id = $request->parameter('id');
 
@@ -146,10 +142,8 @@ class AdminCommentController extends Controller
 			header('Location: '.Config::get('BASE_URL').'admin/comments/list/'.$request->parameter('article_id'));
 			exit();
 		}
-		else
-		{
-			header('Location: '.Config::get('BASE_URL').'admin/login');
-			exit();
-		}
+
+		header('Location: '.Config::get('BASE_URL').'login');
+		exit();
 	}
 }
