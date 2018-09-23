@@ -1,5 +1,6 @@
 <?php
 use Lib\Config;
+use Models\User;
 
 include 'navbar.inc.php';
 ?>
@@ -19,19 +20,28 @@ include 'navbar.inc.php';
 	<div id="comments">
 		<h1 class="title">&nbsp;&nbsp;&nbsp;Commentaire(s)</h1>
 		<p><?= count($article['comments']) ?> commentaire(s) pour cet article. Laissez nous votre ressenti !</p>
-		<!--
-		<form id="form-comment" class="form" action="<?= Config::get('BASE_URL')."articles/".$article['id'] ?>#comments" method="post">
-			<div class="form-row">
-				<label class="label" for="nickname">Pseudo :</label>
-				<input type="text" class="input" id="nickname" name="nickname" placeholder="Votre pseudo.. (sinon Anonyme)">
-			</div>
-			<div class="form-row">
-				<label class="label" for="comment">Commentaire :</label>
-				<textarea class="input" id="comment" name="comment" placeholder="Très bon chapitre, j'attends la suite avec impatience !"></textarea>
-			</div>
-			<button type="submit" class="btn">Envoyer mon commentaire</button>
-		</form>
-		-->
+		<?php
+		if(User::isLogged())
+		{
+			include 'admin/msg.inc.php';
+		?>
+			<form id="form-comment" class="form" action="<?= Config::get('BASE_URL')."articles/".$article['id'] ?>#comments" method="post">
+				<div class="form-row">
+					<label class="label" for="comment">Commentaire :</label>
+					<textarea class="input" id="comment" name="comment" placeholder="Très bon chapitre, j'attends la suite avec impatience !"></textarea>
+				</div>
+				<button type="submit" class="btn">Envoyer mon commentaire</button>
+			</form>
+		<?php
+		}
+		else
+		{
+		?>
+		<div class="msg-error"><p>Vous devez être connecté pour laisser un commentaire.</p></div>
+		<?php
+		}
+		?>
+
 		<?php
 		foreach($article['comments'] as $comment)
 		{
@@ -39,9 +49,16 @@ include 'navbar.inc.php';
 		<div class="comment">
 			<span class="author">Par <b><?= $comment['nickname'] ?></b> le <?= date('d/m/Y à H:i:s', $comment['created_at']) ?></span>
 			<div class="content"><?= $comment['content'] ?></div>
+			<?php
+			if(User::isLogged() && $comment['user_id'] != User::id() && !in_array($comment['id'], $user_reports))
+			{
+			?>
 			<div class="footer">
 				<a href="<?= Config::get('BASE_URL')."report/".$article['id']."/".$comment['id'] ?>"><i class="fas fa-exclamation-triangle"></i> Signaler</a>
 			</div>
+			<?php
+			}
+			?>
 		</div>
 		<?php
 		}

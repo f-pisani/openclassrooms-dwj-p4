@@ -53,7 +53,7 @@ class User extends Model
 	public function updateDisplayName($user_id, $display_name)
 	{
 		$display_name = $this->escape_string($display_name);
-		
+
 		if($this->rawSQL("UPDATE users SET display_name = '$display_name' WHERE id = '$user_id'"))
 		{
 			$_SESSION['user_displayName'] = $display_name;
@@ -62,21 +62,21 @@ class User extends Model
 
 		return false;
 	}
-
+	
 
 	/*******************************************************************************************************************
 	 * public function getDisplayName($user_id)
 	 *
 	 * Return user nicknam or false
 	 */
-	public function getDisplayName($user_id)
+	public function getReportedComments($user_id)
 	{
-		return $this->rawSQL("SELECT display_name FROM users WHERE id = '$user_id'")->fetch_assoc()['display_name'];
+		return $this->rawSQL("SELECT comment_id FROM comment_report WHERE user_id = '$user_id'");
 	}
 
 
 	/*******************************************************************************************************************
-	 * public static function auth($email, $pwd)
+	 * public function auth($email, $pwd)
 	 *
 	 * Connect an user with his $email and $pwd
 	 *

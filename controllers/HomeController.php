@@ -24,8 +24,6 @@ class HomeController extends Controller
 		$list_articles = array();
 		foreach($result as $article)
 		{
-			$article['user_displayName'] = $users->getDisplayName($article['user_id']);
-
 			$article['comments'] = array();
 			$result_comments = $comments->getAll($article['id']);
 			foreach($result_comments as $comment)
@@ -41,7 +39,7 @@ class HomeController extends Controller
 	/*******************************************************************************************************************
 	 * public function show()
 	 *
-	 * Show a chapter
+	 * Show an article
 	 */
 	public function show()
 	{
@@ -51,33 +49,44 @@ class HomeController extends Controller
 			$users = new User();
 			$articles = new Article();
 			$comments = new Comment();
-			$result = $articles->get($request->parameter('id'));
-			if($result->num_rows == 0)
+
+			$success = array();
+
+			$q_articles = $articles->get($request->parameter('id'));
+			if($q_articles->num_rows == 0)
 			{
 				header('Location: '.Config::get('BASE_URL'));
 				exit();
 			}
 
 			// Form : Comment
-			if($request->hasPost('comment'))
+			if(User::isLogged() && $request->hasPost('comment'))
 			{
-				$nickname = htmlentities(strip_tags($request->post('nickname')), ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
-				$comment = htmlentities(strip_tags($request->post('comment')), ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
-
-				if($nickname == null || strlen($nickname) == 0)
-					$nickname = 'Anonyme';
+				$comment = htmlentities(strip_tags(trim($request->post('comment'))), ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
 
 				if(strlen($comment) > 0)
-					$comments->create($request->parameter('id'), $nickname, $comment);
+				{
+					if($comments->create($request->parameter('id'), $comment, User::id()))
+					{
+						$success["Commentaire ajouté !"] = "Votre commentaire a bien été ajouté ! Merci pour votre retour.";
+					}
+				}
+			}
+
+			$user_reports = array();
+			if(User::isLogged())
+			{
+				$result = $users->getReportedComments(User::id());
+				foreach($result as $report)
+					$user_reports[] = $report['comment_id'];
 			}
 
 			$list_articles = array();
-			foreach($result as $article)
+			foreach($q_articles as $article)
 			{
-				$article['user_displayName'] = $users->getDisplayName($article['user_id']);
-
 				$article['comments'] = array();
 				$result_comments = $comments->getAll($article['id']);
+
 				foreach($result_comments as $comment)
 					$article['comments'][] = $comment;
 
@@ -85,7 +94,7 @@ class HomeController extends Controller
 			}
 
 			$title = "Billet simple pour l'Alaska - ".$list_articles[0]['title'];
-			return View::view('article', compact('request', 'title', 'list_articles'));
+			return View::view('article', compact('request', 'title', 'list_articles', 'user_reports', 'success'));
 		}
 		else
 		{
@@ -105,12 +114,15 @@ class HomeController extends Controller
 		$request = $this->request;
 		$title = "Billet simple pour l'Alaska - Signaler un commentaire";
 
-		if($request->hasParameter('article_id') && $request->hasParameter('comment_id'))
+		if(User::isLogged() && $request->hasParameter('article_id') && $request->hasParameter('comment_id'))
 		{
 			$success = array();
 			$comments = new Comment();
+
 			$result = $comments->get($request->parameter('article_id'), $request->parameter('comment_id'));
-			if($result->num_rows == 0)
+			$comment = $result->fetch_assoc();
+
+			if(count($comment) == 0 || (count($comment) == 1 && $comment[0]['user_id'] == User::id()))
 			{
 				header('Location: '.Config::get('BASE_URL')."articles/".$request->parameter('article_id'));
 				exit();
@@ -118,12 +130,13 @@ class HomeController extends Controller
 
 			if($request->hasPost('confirm'))
 			{
-				$comments->report($request->parameter('article_id'), $request->parameter('comment_id'));
-				$success["Le commentaire a été signalé !"] = "Merci pour votre signalement.";
+				if($comments->report(User::id(), $request->parameter('comment_id')))
+					$success["Le commentaire a été signalé !"] = "Merci pour votre signalement.";
+				else
+					$errors["Commentaire déjà signalé !"] = "Vous avez déjà signalé ce commentaire.";
 			}
 
-			$comment = $result->fetch_assoc();
-			return View::view('report', compact('request', 'title', 'comment', 'success'));
+			return View::view('report', compact('request', 'title', 'comment', 'success', 'errors'));
 		}
 		else
 		{

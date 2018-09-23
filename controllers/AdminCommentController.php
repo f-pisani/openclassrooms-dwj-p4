@@ -35,18 +35,21 @@ class AdminCommentController extends Controller
 
 				$list_articles[$i]['comments'] = array();
 				$list_articles[$i]['comments_reported'] = 0;
-				$result_comments = $comments->getAllOrderByReport($article['id']);
-				foreach($result_comments as $comment)
+				$result_comments = $comments->getAll($article['id']);
+				if($result_comments)
 				{
-					$x = count($list_articles[$i]['comments']);
-					$list_articles[$i]['comments'][$x]['id'] = $comment['id'];
-					$list_articles[$i]['comments'][$x]['nickname'] = $comment['nickname'];
-					$list_articles[$i]['comments'][$x]['content'] = $comment['content'];
-					$list_articles[$i]['comments'][$x]['created_at'] = $comment['created_at'];
-					$list_articles[$i]['comments'][$x]['reported_counter'] = $comment['reported_counter'];
+					foreach($result_comments as $comment)
+					{
+						$x = count($list_articles[$i]['comments']);
+						$list_articles[$i]['comments'][$x]['id'] = $comment['id'];
+						$list_articles[$i]['comments'][$x]['nickname'] = $comment['nickname'];
+						$list_articles[$i]['comments'][$x]['content'] = $comment['content'];
+						$list_articles[$i]['comments'][$x]['created_at'] = $comment['created_at'];
+						$list_articles[$i]['comments'][$x]['reported_counter'] = $comment['reported_counter'];
 
-					if($comment['reported_counter'] > 0)
-						$list_articles[$i]['comments_reported']++;
+						if($comment['reported_counter'] > 0)
+							$list_articles[$i]['comments_reported']++;
+					}
 				}
 			}
 
@@ -94,7 +97,7 @@ class AdminCommentController extends Controller
 
 				$list_articles[$i]['comments'] = array();
 				$list_articles[$i]['comments_reported'] = 0;
-				$result_comments = $comments->getAllOrderByReport($article['id']);
+				$result_comments = $comments->getAll($article['id']);
 				foreach($result_comments as $comment)
 				{
 					$x = count($list_articles[$i]['comments']);

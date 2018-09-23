@@ -16,7 +16,7 @@ class AdminController extends Controller
 		if(User::isLogged() && in_array(User::role(), ['admin', 'mod']))
 		{
 			$request = $this->request;
-			$title = "Jean Forteroche - Administration du blog";
+			$title = "Billet simple pour l'Alaska - Administration du blog";
 
 			return View::view('admin/dashboard', compact('request', 'title'));
 		}

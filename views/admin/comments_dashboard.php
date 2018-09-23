@@ -36,7 +36,20 @@ include 'navbar.inc.php';
 			<td><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
 			<td><?= count($article['comments']) ?></td>
 			<td><?= $article['comments_reported'] ?></td>
+			<?php
+			if(count($article['comments']) > 0)
+			{
+			?>
 			<td><a class="link-btn" href="<?= Config::get('BASE_URL')."admin/comments/list/".$article['id'] ?>">Voir les commentaires</a></td>
+			<?php
+			}
+			else
+			{
+			?>
+			<td><a class="link-btn link-btn-disabled" href="#">Voir les commentaires</a></td>
+			<?php
+			}
+			?>
 		</tr>
 		<?php
 		}

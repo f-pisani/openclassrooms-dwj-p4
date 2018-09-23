@@ -69,13 +69,20 @@ class Article extends Model
 
 	public function getAll()
 	{
-		return $this->rawSQL("SELECT * FROM posts WHERE published = 1 ORDER BY created_at DESC");
+		$query = "SELECT P.*, U.display_name AS user_displayName
+		          FROM posts P, users U
+				  WHERE P.user_id = U.id AND P.published = 1 ORDER BY P.created_at DESC";
+
+		return $this->rawSQL($query);
 	}
 
 	public function get($article_id)
 	{
 		$article_id = $this->escape_string($article_id);
+		$query = "SELECT P.*, U.display_name AS user_displayName
+		          FROM posts P, users U
+				  WHERE P.user_id = U.id AND P.published = 1 AND P.id = '$article_id'";
 
-		return $this->rawSQL("SELECT * FROM posts WHERE published = 1 AND id = '$article_id'");
+		return $this->rawSQL($query);
 	}
 }
