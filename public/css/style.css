@@ -512,17 +512,16 @@ input, textarea
 .articles-list-item .title
 {
 	width: 100%;
-
-	text-align: center;
 }
 
-.articles-list-item .fa-bookmark
+.articles-list-item .title::before
 {
+	content: "";
+
 	width: 100%;
+	height: 100%;
 
-	margin: 24px;
-
-	text-align: center;
+	border-left: 6px solid #009688;
 }
 
 .articles-list-item .footer
@@ -579,7 +578,7 @@ input, textarea
 
 #blog #comments #form-comment
 {
-	width: 80%;	
+	width: 80%;
 }
 
 #blog #comments #form-comment .form-row:last-of-type

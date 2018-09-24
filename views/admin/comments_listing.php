@@ -16,6 +16,7 @@ include 'navbar.inc.php';
 	?>
 		<div class="admin-comments-article">
 			<div class="header"><h1><?= $article['title'] ?></h1><span><?= date('d/m/Y H:i:s', $article['created_at']) ?></span></div>
+			<a id="toggleComments" class="link-btn" href="javascript:void(0)" onClick="showOnlyReportedComments()">Afficher uniquement les commentaires signalés</a>
 			<table class="table">
 				<tr>
 					<th class="table-col-comment">Commentaire</th>
@@ -27,7 +28,7 @@ include 'navbar.inc.php';
 				foreach($article['comments'] as $comment)
 				{
 				?>
-				<tr>
+				<tr data-reports="<?= $comment['reported_counter'] ?>">
 					<td><b><?= $comment['nickname'] ?></b><br><?= $comment['content'] ?></td>
 					<td><?= date('d/m/Y H:i:s', $comment['created_at']) ?></td>
 					<td><?= $comment['reported_counter'] ?></td>
@@ -44,3 +45,32 @@ include 'navbar.inc.php';
 	?>
 	</div>
 </div>
+
+<script>
+var allComments = true;
+
+function showOnlyReportedComments()
+{
+	if(allComments)
+	{
+		$(".table tr").each((i, item) => {
+			if($(".table tr:nth-child("+(i+1)+")").data('reports') == 0)
+			{
+				$(".table tr:nth-child("+(i+1)+")").hide(250);
+			}
+		});
+
+		allComments = false;
+		$("#toggleComments").text('Afficher tous les commentaires');
+	}
+	else
+	{
+		$(".table tr").each((i, item) => {
+			$(".table tr:nth-child("+(i+1)+")").show(250);
+		});
+
+		allComments = true;
+		$("#toggleComments").text('Afficher uniquement les commentaires signalés');
+	}
+}
+</script>

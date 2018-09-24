@@ -62,7 +62,7 @@ class User extends Model
 
 		return false;
 	}
-	
+
 
 	/*******************************************************************************************************************
 	 * public function getDisplayName($user_id)
@@ -71,7 +71,7 @@ class User extends Model
 	 */
 	public function getReportedComments($user_id)
 	{
-		return $this->rawSQL("SELECT comment_id FROM comment_report WHERE user_id = '$user_id'");
+		return $this->rawSQL("SELECT comment_id FROM comment_reports WHERE user_id = '$user_id'");
 	}
 
 

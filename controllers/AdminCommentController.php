@@ -17,40 +17,25 @@ class AdminCommentController extends Controller
 		{
 			$request = $this->request;
 			$title = "Billet simple pour l'Alaska - Gestion des commentaires";
+
 			$articles = new Article();
 			$comments = new Comment();
-			$result_articles = $articles->getAllByUserId($_SESSION['user_id']);
+
+			$q_articles = $articles->getAll();
 
 			$list_articles = array();
-			foreach($result_articles as $article)
+			foreach($q_articles as $article)
 			{
 				$i = count($list_articles);
-				$list_articles[$i] = array();
-				$list_articles[$i]['id'] = $article['id'];
-				$list_articles[$i]['title'] = strip_tags($article['title']);
-				$list_articles[$i]['content'] = strip_tags($article['content']);
-				$list_articles[$i]['published'] = $article['published'];
-				$list_articles[$i]['created_at'] = $article['created_at'];
-				$list_articles[$i]['updated_at'] = $article['updated_at'];
+				$list_articles[$i] = array_map('strip_tags', $article);
 
-				$list_articles[$i]['comments'] = array();
+				$list_articles[$i]['comments'] = 0;
 				$list_articles[$i]['comments_reported'] = 0;
-				$result_comments = $comments->getAll($article['id']);
-				if($result_comments)
-				{
-					foreach($result_comments as $comment)
-					{
-						$x = count($list_articles[$i]['comments']);
-						$list_articles[$i]['comments'][$x]['id'] = $comment['id'];
-						$list_articles[$i]['comments'][$x]['nickname'] = $comment['nickname'];
-						$list_articles[$i]['comments'][$x]['content'] = $comment['content'];
-						$list_articles[$i]['comments'][$x]['created_at'] = $comment['created_at'];
-						$list_articles[$i]['comments'][$x]['reported_counter'] = $comment['reported_counter'];
+				if($counter_comments = $comments->countCommentsByArticle($article['id']))
+					$list_articles[$i]['comments'] = $counter_comments->fetch_assoc()['counter'];
 
-						if($comment['reported_counter'] > 0)
-							$list_articles[$i]['comments_reported']++;
-					}
-				}
+				if($counter_reports = $comments->countCommentsReportedByArticle($article['id']))
+					$list_articles[$i]['comments_reported'] = $counter_reports->fetch_assoc()['counter'];
 			}
 
 			return View::view('admin/comments_dashboard', compact('request', 'title', 'list_articles'));

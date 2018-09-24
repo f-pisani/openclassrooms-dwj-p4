@@ -19,7 +19,7 @@ class Comment extends Model
 		$user_id = $this->escape_string($user_id);
 		$comment_id = $this->escape_string($comment_id);
 
-		return $this->rawSQL("INSERT INTO comment_report VALUES(null, '$user_id', '$comment_id')");
+		return $this->rawSQL("INSERT INTO comment_reports VALUES(null, '$user_id', '$comment_id')");
 	}
 
 	public function delete($id)
@@ -33,9 +33,9 @@ class Comment extends Model
 	{
 		$article_id = $this->escape_string($article_id);
 		$comment_id = $this->escape_string($comment_id);
-		$query = "SELECT C.*, U.display_name AS nickname
-				  FROM comments C, users U
-				  WHERE C.post_id = '$article_id' AND C.id = '$comment_id' AND C.user_id = U.id";
+		$query = "SELECT C.*, U.display_name AS nickname, COUNT(R.id) AS reported_counter
+				  FROM comments C, users U, comment_reports R
+				  WHERE C.post_id = '$article_id' AND C.id = '$comment_id' AND R.comment_id = C.id AND C.user_id = U.id";
 
 		return $this->rawSQL($query);
 	}
@@ -43,22 +43,32 @@ class Comment extends Model
 	public function getAll($article_id)
 	{
 		$article_id = $this->escape_string($article_id);
-		$query = "SELECT C.*, U.display_name AS nickname
-		          FROM comments C, users U
-				  WHERE C.post_id = '$article_id' AND C.user_id = U.id ORDER BY created_at DESC";
+		$query = "SELECT C.id, C.*, U.display_name AS nickname, (SELECT COUNT(id) FROM comment_reports WHERE comment_id = C.id) AS reported_counter
+				  FROM comments C, users U
+				  WHERE C.post_id = '$article_id'
+				  AND C.user_id = U.id
+				  GROUP BY C.id
+				  ORDER BY C.created_at DESC";
 
 		return $this->rawSQL($query);
 	}
 
-	public function getReportedComments($article_id)
+	public function countCommentsByArticle($article_id)
 	{
 		$article_id = $this->escape_string($article_id);
-		$comments = $this->getAll($article_id);
-		foreach($comments as $comment)
-		{
-			$comment[]
-		}
 
-		return $comments;
+		return $this->rawSQL("SELECT COUNT(*) AS counter FROM comments WHERE post_id = '$article_id'");
+	}
+
+	public function countCommentsReportedByArticle($article_id)
+	{
+		$comments = $this->getAll($article_id);
+		$commentsId_list = array();
+		foreach($comments as $comment)
+			$commentsId_list[] = "'".$comment['id']."'";
+
+		$in = implode(',', $commentsId_list);
+
+		return $this->rawSQL("SELECT COUNT(*) AS counter FROM comment_reports WHERE comment_id IN ($in)");
 	}
 }

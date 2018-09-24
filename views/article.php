@@ -15,6 +15,14 @@ include 'navbar.inc.php';
 		<div class="content"><?= $article['content'] ?></div>
 		<div class="footer">
 			<span class="author">Par <b><?= $article['user_displayName'] ?></b> publié le <?= date('d/m/Y \à H:i', $article['created_at']) ?></span>
+			<?php
+			if($article['updated_at'] != $article['created_at'])
+			{
+			?>
+			<span class="update">Mis à jour le <?= date('d/m/Y \à H:i', $article['updated_at']) ?></span>
+			<?php
+			}
+			?>
 		</div>
 	</div>
 	<div id="comments">
