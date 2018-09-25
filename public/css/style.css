@@ -454,6 +454,19 @@ input, textarea
 
 
 /***********************************************************************************************************************
+ * Admin :: Users
+ */
+#table-users .table-col-id{ width: 5%; }
+#table-users .table-col-email{ width: 20%; }
+#table-users .table-col-role{ width: 5%; }
+#table-users .table-col-commentsCount{ width: 10%; }
+#table-users .table-col-commentsReported{ width: 10%; }
+#table-users .table-col-createdAt{ width: 15%; }
+#table-users .table-col-updatedAt{ width: 15%; }
+#table-users .table-col-action{ width: 20%; }
+
+
+/***********************************************************************************************************************
  * Homepage
  */
 #alaska-header
@@ -514,6 +527,11 @@ input, textarea
 	width: 100%;
 }
 
+.articles-list-item .excerp
+{
+	text-align: justify;
+}
+
 .articles-list-item .title::before
 {
 	content: "";
@@ -530,6 +548,8 @@ input, textarea
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: row;
+
+	margin-top: 16px;
 }
 
 

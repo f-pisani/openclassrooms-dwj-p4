@@ -24,6 +24,11 @@ Route::any('/report/{article_id}/{comment_id}', 'HomeController@report')->where(
 // Admin
 Route::any('/admin', 'AdminController@index'); // Dashboard
 
+// Admin : Users
+Route::any('/admin/users', 'AdminUserController@index'); // Listing
+Route::any('/admin/users/promote/{id}', 'AdminUserController@promote')->where(['id' => '[0-9]+']);
+Route::any('/admin/users/demote/{id}', 'AdminUserController@demote')->where(['id' => '[0-9]+']);
+
 // Admin : Articles
 Route::any('/admin/articles', 'AdminArticleController@index'); // Listing
 Route::any('/admin/articles/create', 'AdminArticleController@create'); // Create

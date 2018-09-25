@@ -18,7 +18,7 @@ class User extends Model
 		$nickname = $this->escape_string($nickname);
 		$pwd = password_hash($this->escape_string($pwd), PASSWORD_BCRYPT);
 
-		return $this->rawSQL("INSERT INTO users VALUES(null, '$email', 'user', '$pwd', '$nickname')");
+		return $this->rawSQL("INSERT INTO users VALUES(null, '$email', 'user', '$pwd', '$nickname', '".time()."', '".time()."')");
 	}
 
 
@@ -33,7 +33,7 @@ class User extends Model
 	{
 		$pwd_new = password_hash($this->escape_string($pwd_new), PASSWORD_BCRYPT);
 
-		if($this->rawSQL("UPDATE users SET password = '$pwd_new' WHERE id = '$user_id'"))
+		if($this->rawSQL("UPDATE users SET password = '$pwd_new', updated_at = '".time()."' WHERE id = '$user_id'"))
 		{
 			$_SESSION['user_password'] = $pwd_new;
 			return true;
@@ -54,7 +54,7 @@ class User extends Model
 	{
 		$display_name = $this->escape_string($display_name);
 
-		if($this->rawSQL("UPDATE users SET display_name = '$display_name' WHERE id = '$user_id'"))
+		if($this->rawSQL("UPDATE users SET display_name = '$display_name', updated_at = '".time()."' WHERE id = '$user_id'"))
 		{
 			$_SESSION['user_displayName'] = $display_name;
 			return true;
@@ -65,9 +65,9 @@ class User extends Model
 
 
 	/*******************************************************************************************************************
-	 * public function getDisplayName($user_id)
+	 * public function getReportedComments($user_id)
 	 *
-	 * Return user nicknam or false
+	 * Return user reports
 	 */
 	public function getReportedComments($user_id)
 	{
@@ -98,12 +98,55 @@ class User extends Model
 				$_SESSION['user_role'] = $user_row->role;
 				$_SESSION['user_password'] = $user_row->password;
 				$_SESSION['user_displayName'] = $user_row->display_name;
+				$_SESSION['user_createdAt'] = $user_row->created_at;
+				$_SESSION['user_updatedAt'] = $user_row->updated_at;
 
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+
+	/*******************************************************************************************************************
+	 * public function getAll()
+	 *
+	 * Retrieves all users account data
+	 */
+	public function getAll()
+	{
+		return $this->rawSQL("SELECT U.*,
+			                         (SELECT count(id) FROM comments WHERE user_id = U.id) AS comments_count,
+									 (SELECT count(id) FROM comment_reports WHERE user_id = U.id) AS reports_count
+		                      FROM users U
+							  GROUP BY U.id");
+	}
+
+
+	/*******************************************************************************************************************
+	 * public function promote($user_id)
+	 *
+	 * Promote user moderator
+	 */
+	public function promote($user_id)
+	{
+		$user_id = $this->escape_string($user_id);
+
+		return $this->rawSQL("UPDATE users SET role = 'mod', updated_at = '".time()."' WHERE id = '$user_id'");
+	}
+
+
+	/*******************************************************************************************************************
+	 * public function demote($user_id)
+	 *
+	 * Demote moderator to user
+	 */
+	public function demote($user_id)
+	{
+		$user_id = $this->escape_string($user_id);
+
+		return $this->rawSQL("UPDATE users SET role = 'user', updated_at = '".time()."' WHERE id = '$user_id'");
 	}
 
 

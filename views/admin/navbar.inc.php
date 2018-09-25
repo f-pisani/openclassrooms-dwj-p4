@@ -17,6 +17,7 @@ use Models\User;
 			{
 			?>
 			<li><a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a></li>
+			<li><a href="<?= Config::get('BASE_URL')."admin/users" ?>">Gestion des utilisateurs</a></li>
 			<?php
 			}
 			?>

@@ -20,6 +20,13 @@ include 'navbar.inc.php';
 			<p>Permet de la création, l'édition ou encore la suppression d'articles.</p>
 			<a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a>
 		</div>
+
+		<div class="action-item">
+			<h2>Gestion des utilisateurs</h2>
+			<i class="fas fa-3x fa-user-plus"></i>
+			<p>Permet la gestion des utilisateurs et des droits de modération.</p>
+			<a href="<?= Config::get('BASE_URL')."admin/users" ?>">Gestion des utilisateurs</a>
+		</div>
 		<?php
 		}
 		?>

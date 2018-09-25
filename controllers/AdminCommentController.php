@@ -59,7 +59,7 @@ class AdminCommentController extends Controller
 			$title = "Billet simple pour l'Alaska - Gestion des commentaires";
 			$articles = new Article();
 			$comments = new Comment();
-			$result_articles = $articles->getByUserId($_SESSION['user_id'], $request->parameter('id'));
+			$result_articles = $articles->getAll();
 
 			if($result_articles == null || $result_articles->num_rows == 0)
 			{
