@@ -487,6 +487,11 @@ input, textarea
 	object-fit: cover;
 }
 
+#blog
+{
+	min-height: 100%;	
+}
+
 #blog h1
 {
 	width: 100%;

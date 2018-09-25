@@ -5,11 +5,11 @@ include 'navbar.inc.php';
 
 <div id="admin-dashboard">
 	<h1>Gestion des commentaires</h1>
-	<p>Cette espace permet la suppression de commentaires, la suppression est irréversible.</p>
+	<p>Cet espace permet la suppression de commentaires, la suppression est irréversible.</p>
 
 	<div id="admin-comments">
 	<?php
-	foreach($list_articles as $article)
+	foreach($articles_list as $article)
 	{
 		if(count($article['comments']) > 0)
 		{

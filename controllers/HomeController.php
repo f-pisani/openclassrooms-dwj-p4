@@ -9,7 +9,7 @@ class HomeController extends Controller
 	/*******************************************************************************************************************
 	 * public function index()
 	 *
-	 * Show last chapter
+	 * Display last chapters available
 	 */
 	public function index()
 	{
@@ -19,20 +19,20 @@ class HomeController extends Controller
 		$users = new User();
 		$articles = new Article();
 		$comments = new Comment();
-		$result = $articles->getAll();
+		$q_articles = $articles->getAll();
 
-		$list_articles = array();
-		foreach($result as $article)
+		$articles_list = array();
+		foreach($q_articles as $article)
 		{
 			$article['comments'] = array();
-			$result_comments = $comments->getAll($article['id']);
-			foreach($result_comments as $comment)
+			$q_comments = $comments->getAll($article['id']);
+			foreach($q_comments as $comment)
 				$article['comments'][] = $comment;
 
-			$list_articles[] = $article;
+			$articles_list[] = $article;
 		}
 
-		return View::view('home', compact('request', 'title', 'list_articles'));
+		return View::view('home', compact('request', 'title', 'articles_list'));
 	}
 
 
@@ -67,21 +67,19 @@ class HomeController extends Controller
 				if(strlen($comment) > 0)
 				{
 					if($comments->create($request->parameter('id'), $comment, User::id()))
-					{
 						$success["Commentaire ajouté !"] = "Votre commentaire a bien été ajouté ! Merci pour votre retour.";
-					}
 				}
 			}
 
 			$user_reports = array();
 			if(User::isLogged())
 			{
-				$result = $users->getReportedComments(User::id());
-				foreach($result as $report)
+				$q_users = $users->getReportedComments(User::id());
+				foreach($q_users as $report)
 					$user_reports[] = $report['comment_id'];
 			}
 
-			$list_articles = array();
+			$articles_list = array();
 			foreach($q_articles as $article)
 			{
 				$article['comments'] = array();
@@ -90,11 +88,11 @@ class HomeController extends Controller
 				foreach($result_comments as $comment)
 					$article['comments'][] = $comment;
 
-				$list_articles[] = $article;
+				$articles_list[] = $article;
 			}
 
-			$title = "Billet simple pour l'Alaska - ".$list_articles[0]['title'];
-			return View::view('article', compact('request', 'title', 'list_articles', 'user_reports', 'success'));
+			$title = "Billet simple pour l'Alaska - ".$articles_list[0]['title'];
+			return View::view('article', compact('request', 'title', 'articles_list', 'user_reports', 'success'));
 		}
 		else
 		{

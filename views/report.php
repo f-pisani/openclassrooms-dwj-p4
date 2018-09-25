@@ -15,9 +15,10 @@ include 'navbar.inc.php';
 				<span class="author">Par <b><?= $comment['nickname'] ?></b> le <?= date('d/m/Y à H:i:s', $comment['created_at']) ?></span>
 				<div class="content"><?= $comment['content'] ?></div>
 			</div>
+
 			<button class="btn" name="confirm" value="true">Confirmer le signalement</button>
-		</form>
-		<br><br>
+		</form><br><br>
+		
 		<a class="link-btn" href="<?= Config::get('BASE_URL')."articles/".$comment['post_id'] ?>#comments">Retour à l'article</a>
 	</div>
 </div>

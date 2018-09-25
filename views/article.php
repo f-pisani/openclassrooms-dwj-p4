@@ -7,9 +7,10 @@ include 'navbar.inc.php';
 
 <div id="blog">
 	<?php
-	foreach($list_articles as $article)
+	foreach($articles_list as $article)
 	{
 	?>
+
 	<div id="post">
 		<h1 class="title">&nbsp;&nbsp;&nbsp;<?= $article['title'] ?></h1>
 		<div class="content"><?= $article['content'] ?></div>
@@ -17,14 +18,11 @@ include 'navbar.inc.php';
 			<span class="author">Par <b><?= $article['user_displayName'] ?></b> publié le <?= date('d/m/Y \à H:i', $article['created_at']) ?></span>
 			<?php
 			if($article['updated_at'] != $article['created_at'])
-			{
-			?>
-			<span class="update">Mis à jour le <?= date('d/m/Y \à H:i', $article['updated_at']) ?></span>
-			<?php
-			}
+				echo "<span class=\"update\">Mis à jour le ". date('d/m/Y \à H:i', $article['updated_at']) ."</span>";
 			?>
 		</div>
 	</div>
+
 	<div id="comments">
 		<h1 class="title">&nbsp;&nbsp;&nbsp;Commentaire(s)</h1>
 		<p><?= count($article['comments']) ?> commentaire(s) pour cet article. Laissez nous votre ressenti !</p>
@@ -38,19 +36,14 @@ include 'navbar.inc.php';
 					<label class="label" for="comment">Commentaire :</label>
 					<textarea class="input" id="comment" name="comment" placeholder="Très bon chapitre, j'attends la suite avec impatience !"></textarea>
 				</div>
+
 				<button type="submit" class="btn">Envoyer mon commentaire</button>
 			</form>
 		<?php
 		}
 		else
-		{
-		?>
-		<div class="msg-error"><p>Vous devez être connecté pour laisser un commentaire.</p></div>
-		<?php
-		}
-		?>
+			echo "<div class=\"msg-error\"><p>Vous devez être connecté pour laisser un commentaire.</p></div>";
 
-		<?php
 		foreach($article['comments'] as $comment)
 		{
 		?>

@@ -13,11 +13,12 @@ include 'navbar.inc.php';
 		<?php
 		if(User::role() == 'admin')
 		{
+			// Admin only
 		?>
 		<div class="action-item">
 			<h2>Gestion des articles</h2>
 			<i class="fas fa-3x fa-newspaper"></i>
-			<p>Permet de la création, l'édition ou encore la suppression d'articles.</p>
+			<p>Permet la création, l'édition ou encore la suppression d'articles.</p>
 			<a href="<?= Config::get('BASE_URL')."admin/articles" ?>">Gestion des articles</a>
 		</div>
 
@@ -34,8 +35,7 @@ include 'navbar.inc.php';
 		<div class="action-item">
 			<h2>Gestion des commentaires</h2>
 			<i class="fas fa-3x fa-comments"></i>
-			<p>Permet la gestion des commentaires, visualiser les commentaires qui ont étés signalés et la possibilité
-				de les supprimer.</p>
+			<p>Permet la gestion des commentaires et leur suppression.</p>
 			<a href="<?= Config::get('BASE_URL')."admin/comments" ?>">Gestion des commentaires</a>
 		</div>
 	</div>

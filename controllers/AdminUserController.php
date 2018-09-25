@@ -9,6 +9,7 @@ class AdminUserController extends Controller
 	/*******************************************************************************************************************
 	 * public function index()
 	 *
+	 * Users listing
 	 */
 	public function index()
 	{
@@ -34,6 +35,12 @@ class AdminUserController extends Controller
 		exit();
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function promote()
+	 *
+	 * Promote user to moderator
+	 */
 	public function promote()
 	{
 		$request = $this->request;
@@ -52,6 +59,12 @@ class AdminUserController extends Controller
 		exit();
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function demote()
+	 *
+	 * Demote moderator to user
+	 */
 	public function demote()
 	{
 		$request = $this->request;

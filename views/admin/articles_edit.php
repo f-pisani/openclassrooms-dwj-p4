@@ -15,10 +15,13 @@ if(isset($article_id) && !empty($article_id) && $article_id !== null)
 
 <div id="admin-dashboard">
 	<h1>Article : Mode éditeur</h1>
-	<p>Cet interface vous permet de rédiger vos articles et de les publier.</p>
+	<p>Cette interface vous permet de rédiger vos articles et de gérer leur état de visiblité.</p>
 
 	<?php include 'msg.inc.php'; ?>
+
 	<div id="admin-articleEditor">
+		<a class="link-btn" href="<?= Config::get('BASE_URL').'admin/articles' ?>">Retour aux articles</a><br><br>
+
 		<form id="form-articleEditor" class="form" action="<?= $formAction ?>" method="post">
 			<div class="form-row">
 				<label class="label" for="title">Titre :</label>

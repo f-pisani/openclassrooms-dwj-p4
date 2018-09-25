@@ -23,22 +23,22 @@ class AdminCommentController extends Controller
 
 			$q_articles = $articles->getAll();
 
-			$list_articles = array();
+			$articles_list = array();
 			foreach($q_articles as $article)
 			{
-				$i = count($list_articles);
-				$list_articles[$i] = array_map('strip_tags', $article);
+				$i = count($articles_list);
+				$articles_list[$i] = array_map('strip_tags', $article);
 
-				$list_articles[$i]['comments'] = 0;
-				$list_articles[$i]['comments_reported'] = 0;
+				$articles_list[$i]['comments'] = 0;
+				$articles_list[$i]['comments_reported'] = 0;
 				if($counter_comments = $comments->countCommentsByArticle($article['id']))
-					$list_articles[$i]['comments'] = $counter_comments->fetch_assoc()['counter'];
+					$articles_list[$i]['comments'] = $counter_comments->fetch_assoc()['counter'];
 
 				if($counter_reports = $comments->countCommentsReportedByArticle($article['id']))
-					$list_articles[$i]['comments_reported'] = $counter_reports->fetch_assoc()['counter'];
+					$articles_list[$i]['comments_reported'] = $counter_reports->fetch_assoc()['counter'];
 			}
 
-			return View::view('admin/comments_dashboard', compact('request', 'title', 'list_articles'));
+			return View::view('admin/comments_dashboard', compact('request', 'title', 'articles_list'));
 		}
 
 		header('Location: '.Config::get('BASE_URL').'login');
@@ -57,54 +57,36 @@ class AdminCommentController extends Controller
 		if(User::isLogged() && in_array(User::role(), ['admin', 'mod']) && $request->hasParameter('id'))
 		{
 			$title = "Billet simple pour l'Alaska - Gestion des commentaires";
+
 			$articles = new Article();
 			$comments = new Comment();
-			$result_articles = $articles->getAll();
+			$q_articles = $articles->get($request->parameter('id'));
 
-			if($result_articles == null || $result_articles->num_rows == 0)
+			if($q_articles == null || $q_articles->num_rows == 0)
 			{
 				header('Location: '.Config::get('BASE_URL').'admin/comments');
 				exit();
 			}
 
-			$list_articles = array();
-			$comments_counter = 0;
-			foreach($result_articles as $article)
+			$articles_list = array();
+			foreach($q_articles as $article)
 			{
-				$i = count($list_articles);
-				$list_articles[$i] = array();
-				$list_articles[$i]['id'] = $article['id'];
-				$list_articles[$i]['title'] = strip_tags($article['title']);
-				$list_articles[$i]['content'] = strip_tags($article['content']);
-				$list_articles[$i]['published'] = $article['published'];
-				$list_articles[$i]['created_at'] = $article['created_at'];
-				$list_articles[$i]['updated_at'] = $article['updated_at'];
+				$i = count($articles_list);
+				$articles_list[$i] = $article;
 
-				$list_articles[$i]['comments'] = array();
-				$list_articles[$i]['comments_reported'] = 0;
-				$result_comments = $comments->getAll($article['id']);
-				foreach($result_comments as $comment)
-				{
-					$x = count($list_articles[$i]['comments']);
-					$list_articles[$i]['comments'][$x]['id'] = $comment['id'];
-					$list_articles[$i]['comments'][$x]['nickname'] = $comment['nickname'];
-					$list_articles[$i]['comments'][$x]['content'] = $comment['content'];
-					$list_articles[$i]['comments'][$x]['created_at'] = $comment['created_at'];
-					$list_articles[$i]['comments'][$x]['reported_counter'] = $comment['reported_counter'];
-
-					$comments_counter++;
-					if($comment['reported_counter'] > 0)
-						$list_articles[$i]['comments_reported']++;
-				}
+				$articles_list[$i]['comments'] = array();
+				$q_comments = $comments->getAll($article['id']);
+				foreach($q_comments as $comment)
+					$articles_list[$i]['comments'][] = $comment;
 			}
 
-			if($comments_counter == 0)
+			if(count($articles_list[0]['comments']) == 0)
 			{
 				header('Location: '.Config::get('BASE_URL').'admin/comments');
 				exit();
 			}
 
-			return View::view('admin/comments_listing', compact('request', 'title', 'list_articles'));
+			return View::view('admin/comments_listing', compact('request', 'title', 'articles_list'));
 		}
 
 		header('Location: '.Config::get('BASE_URL').'login');

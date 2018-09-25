@@ -6,16 +6,12 @@ include 'navbar.inc.php';
 
 <div id="admin-dashboard">
 	<h1>Gestion des commentaires</h1>
-	<p>Cette espace permet la gestion des commentaires.</p>
+	<p>Cet espace permet la gestion des commentaires.</p>
 
 	<div id="admin-comments">
 	<?php
-	if(count($list_articles) == 0)
-	{
-	?>
-		<div class="msg-error"><b>Aucun article !</b><br>Le site ne contient aucun article.</div>
-	<?php
-	}
+	if(count($articles_list) == 0)
+		echo "<div class=\"msg-error\"><b>Aucun article !</b><br>Le site ne contient aucun article.</div>";
 	else
 	{
 	?>
@@ -28,7 +24,7 @@ include 'navbar.inc.php';
 			<th class="table-col-show">Voir les commentaires</th>
 		</tr>
 		<?php
-		foreach($list_articles as $article)
+		foreach($articles_list as $article)
 		{
 		?>
 		<tr>
@@ -38,25 +34,17 @@ include 'navbar.inc.php';
 			<td><?= $article['comments_reported'] ?></td>
 			<?php
 			if($article['comments'] > 0)
-			{
-			?>
-			<td><a class="link-btn" href="<?= Config::get('BASE_URL')."admin/comments/list/".$article['id'] ?>">Voir les commentaires</a></td>
-			<?php
-			}
+				echo "<td><a class=\"link-btn\" href=\"".Config::get('BASE_URL').'admin/comments/list/'.$article['id']."\">Voir les commentaires</a></td>";
 			else
-			{
-			?>
-			<td><a class="link-btn link-btn-disabled" href="#">Voir les commentaires</a></td>
-			<?php
-			}
+				echo "<td><a class=\"link-btn link-btn-disabled\" href=\"#\">Voir les commentaires</a></td>";
 			?>
 		</tr>
 		<?php
-		}
+		} // END FOREACH
 		?>
 	</table>
 	<?php
-	}
+	} // END ELSE
 	?>
 	</div>
 </div>

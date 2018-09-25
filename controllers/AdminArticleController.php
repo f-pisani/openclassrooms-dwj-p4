@@ -9,7 +9,7 @@ class AdminArticleController extends Controller
 	/*******************************************************************************************************************
 	 * public function index()
 	 *
-	 * Dashboard view
+	 * Articles dashboard
 	 */
 	public function index()
 	{
@@ -17,23 +17,15 @@ class AdminArticleController extends Controller
 		{
 			$request = $this->request;
 			$title = "Billet simple pour l'Alaska - Gestion des articles";
+
 			$articles = new Article();
-			$result = $articles->getAllByUserId($_SESSION['user_id']);
+			$q_articles = $articles->getAllByUserId(User::id());
 
-			$list_articles = array();
-			foreach($result as $data)
-			{
-				$i = count($list_articles);
-				$list_articles[$i] = array();
-				$list_articles[$i]['id'] = $data['id'];
-				$list_articles[$i]['title'] = strip_tags($data['title']);
-				$list_articles[$i]['content'] = strip_tags($data['content']);
-				$list_articles[$i]['published'] = $data['published'];
-				$list_articles[$i]['created_at'] = $data['created_at'];
-				$list_articles[$i]['updated_at'] = $data['updated_at'];
-			}
+			$articles_list = array();
+			foreach($q_articles as $article)
+				$articles_list[] = $article;
 
-			return View::view('admin/articles_dashboard', compact('request', 'title', 'list_articles'));
+			return View::view('admin/articles_dashboard', compact('request', 'title', 'articles_list'));
 		}
 
 		header('Location: '.Config::get('BASE_URL').'login');
@@ -44,7 +36,7 @@ class AdminArticleController extends Controller
 	/*******************************************************************************************************************
 	 * public function create()
 	 *
-	 * Allow admin to create an article
+	 * Create an article
 	 */
 	public function create()
 	{
@@ -52,24 +44,22 @@ class AdminArticleController extends Controller
 		{
 			$request = $this->request;
 			$title = "Billet simple pour l'Alaska - Nouvel article";
-			$errors = array();
-			$success = array();
 
-			// Form create
+			$errors = array();
+
 			if($request->hasPost('title') && $request->hasPost('article'))
 			{
-				$user_id = $_SESSION['user_id'];
 				$article_title = $request->post('title');
 				$article_content = $request->post('article');
 				$article_publish = $request->post('publish');
 
 				if(strlen($article_title) <= 512)
 				{
-					$article = new Article();
-					$result = $article->create($user_id, $article_title, $article_content, $article_publish);
-					if($result)
+					$articles = new Article();
+
+					if($articles->create(User::id(), $article_title, $article_content, $article_publish))
 					{
-						header('Location: '.Config::get('BASE_URL').'admin/articles/edit/'.$article->lastId());
+						header('Location: '.Config::get('BASE_URL').'admin/articles/edit/'.$articles->lastId());
 						exit();
 					}
 					else
@@ -79,7 +69,7 @@ class AdminArticleController extends Controller
 					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 512 caractères.";
 			}
 
-			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_title', 'article_content', 'article_publish'));
+			return View::view('admin/articles_edit', compact('request', 'title', 'errors', 'article_title', 'article_content', 'article_publish'));
 		}
 
 		header('Location: '.Config::get('BASE_URL').'login');
@@ -90,7 +80,7 @@ class AdminArticleController extends Controller
 	/*******************************************************************************************************************
 	 * public function edit()
 	 *
-	 * Allow admin to edit an article
+	 * Edit an article
 	 */
 	public function edit()
 	{
@@ -98,29 +88,29 @@ class AdminArticleController extends Controller
 		if(User::isLogged() && User::role() == 'admin' && $request->hasParameter('id'))
 		{
 			$title = "Billet simple pour l'Alaska - Modifier un article";
+
 			$errors = array();
 			$success = array();
 
-			$user_id = $_SESSION['user_id'];
-			$article = new Article();
-			$result = $article->getByUserId($user_id, $request->parameter('id'))->fetch_object();
+			$articles = new Article();
+			$q_articles = $articles->getByUserId(User::id(), $request->parameter('id'))->fetch_object();
 
-			if($result === null)
+			if($q_articles === null)
 			{
 				header('Location: '.Config::get('BASE_URL').'admin/articles');
 				exit();
 			}
 
-			$article_id = $result->id;
-			$article_title = $result->title;
-			$article_content = $result->content;
-			$article_publish = $result->published;
+			$article_id = $q_articles->id;
+			$article_title = $q_articles->title;
+			$article_content = $q_articles->content;
+			$article_publish = $q_articles->published;
 			if($article_publish == 1)
 				$article_publish = 'checked';
 			else
 				$article_publish = null;
 
-			// Form create
+
 			if($request->hasPost('title') && $request->hasPost('article'))
 			{
 				$article_title = $request->post('title');
@@ -129,12 +119,8 @@ class AdminArticleController extends Controller
 
 				if(strlen($article_title) <= 512)
 				{
-					$article = new Article();
-					$result = $article->update($user_id, $article_id, $article_title, $article_content, $article_publish);
-					if($result)
-					{
-						$success["Article mis à jour !"] = "Les modifications ont bien étés prises en compte.";
-					}
+					if($articles->update(User::id(), $article_id, $article_title, $article_content, $article_publish))
+						$success["Article mis à jour !"] = "Les modifications ont bien effectuées.";
 					else
 						$errors["Erreur lors de la création !"] = "Une erreur est survenue, veuillez réessayer.";
 				}
@@ -162,11 +148,10 @@ class AdminArticleController extends Controller
 			$request = $this->request;
 			if($request->hasParameter('id'))
 			{
-				$user_id = $_SESSION['user_id'];
 				$article_id = $request->parameter('id');
 
 				$articles = new Article();
-				$articles->delete($user_id, $article_id);
+				$articles->delete(User::id(), $article_id);
 			}
 
 			header('Location: '.Config::get('BASE_URL').'admin/articles');
