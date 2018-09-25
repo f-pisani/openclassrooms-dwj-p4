@@ -5,6 +5,11 @@ use Lib\{Configuration, Model};
 
 class Comment extends Model
 {
+	/*******************************************************************************************************************
+	 * public function create($article_id, $content, $user_id)
+	 *
+	 * Create a new comment
+	 */
 	public function create($article_id, $content, $user_id)
 	{
 		$article_id = $this->escape_string($article_id);
@@ -14,6 +19,12 @@ class Comment extends Model
 		return $this->rawSQL("INSERT INTO comments VALUES(null, '$content', '0', '". time() ."', '$article_id', '$user_id')");
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function report($user_id, $comment_id)
+	 *
+	 * Report a comment
+	 */
 	public function report($user_id, $comment_id)
 	{
 		$user_id = $this->escape_string($user_id);
@@ -22,6 +33,12 @@ class Comment extends Model
 		return $this->rawSQL("INSERT INTO comment_reports VALUES(null, '$user_id', '$comment_id')");
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function delete($id)
+	 *
+	 * Delete a comment
+	 */
 	public function delete($id)
 	{
 		$id = $this->escape_string($id);
@@ -30,6 +47,12 @@ class Comment extends Model
 		return $this->rawSQL("UPDATE comments SET toDelete = '1' WHERE id = '$id'");
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function get($article_id, $comment_id)
+	 *
+	 * Retrieves a specific comment
+	 */
 	public function get($article_id, $comment_id)
 	{
 		$article_id = $this->escape_string($article_id);
@@ -41,6 +64,12 @@ class Comment extends Model
 		return $this->rawSQL($query);
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function getAll($article_id)
+	 *
+	 * Retrieves all comments for an article
+	 */
 	public function getAll($article_id)
 	{
 		$article_id = $this->escape_string($article_id);
@@ -55,6 +84,12 @@ class Comment extends Model
 		return $this->rawSQL($query);
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function countCommentsByArticle($article_id)
+	 *
+	 * Count number of comments for an article
+	 */
 	public function countCommentsByArticle($article_id)
 	{
 		$article_id = $this->escape_string($article_id);
@@ -62,6 +97,12 @@ class Comment extends Model
 		return $this->rawSQL("SELECT COUNT(*) AS counter FROM comments WHERE toDelete = '0' AND post_id = '$article_id'");
 	}
 
+
+	/*******************************************************************************************************************
+	 * public function countCommentsReportedByArticle($article_id)
+	 *
+	 * Count number of comments reported for an article
+	 */
 	public function countCommentsReportedByArticle($article_id)
 	{
 		$comments = $this->getAll($article_id);
