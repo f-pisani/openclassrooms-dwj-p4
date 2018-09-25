@@ -107,7 +107,7 @@ include 'navbar.inc.php';
 			}
 		});
 
-		if($("#comments .comment").length == 0)
+		if($("#comments .comment").length == 0 ||$("#comments .comment").length <= currentComments_displayed)
 			$("a#showMoreComments").hide(500).css('display', 'none');
 	});
 </script>

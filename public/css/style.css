@@ -489,7 +489,7 @@ input, textarea
 
 #blog
 {
-	min-height: 100%;	
+	min-height: 100%;
 }
 
 #blog h1
@@ -530,6 +530,11 @@ input, textarea
 .articles-list-item .title
 {
 	width: 100%;
+}
+
+.articles-list-item .title a
+{
+	color: #212121;
 }
 
 .articles-list-item .excerp
