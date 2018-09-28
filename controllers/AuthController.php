@@ -26,8 +26,8 @@ class AuthController extends Controller
 			if($request->hasPost('email') && $request->hasPost('nickname') &&
 			   $request->hasPost('pwd') && $request->hasPost('pwd_conf'))
 			{
-				$data['email'] = $request->post('email');
-				$data['nickname'] = trim($request->post('nickname'));
+				$data['email'] = strip_tags(htmlentities($request->post('email')));
+				$data['nickname'] = strip_tags(htmlentities(trim($request->post('nickname'))));
 				$data['pwd'] = $request->post('pwd');
 				$data['pwd_conf'] = $request->post('pwd_conf');
 
@@ -125,8 +125,8 @@ class AuthController extends Controller
 			if($request->hasPost('pwd_current') && $request->hasPost('pwd_new') && $request->hasPost('pwd_new_conf'))
 			{
 				$pwd_current = $user->escape_string($request->post('pwd_current'));
-				$pwd_new = $user->escape_string($request->post('pwd_new'));
-				$pwd_new_conf = $user->escape_string($request->post('pwd_new_conf'));
+				$pwd_new = $request->post('pwd_new');
+				$pwd_new_conf = $request->post('pwd_new_conf');
 
 				// Test if current password is the good password
 				if(password_verify($pwd_current, User::password()))
@@ -153,7 +153,7 @@ class AuthController extends Controller
 			// Changes display name requested
 			if($request->hasPost('display_name') && $request->post('display_name') !== User::nickname())
 			{
-				$display_name = trim($request->post('display_name'));
+				$display_name = strip_tags(htmlentities(trim($request->post('display_name'))));
 				if(preg_match('/^[a-zA-Z0-9_\- ]{3,42}$/', $display_name))
 				{
 					if($user->updateDisplayName(User::id(), $display_name))
