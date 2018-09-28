@@ -7,8 +7,8 @@ class View
 {
 	public static function view($view_name, $data = array())
 	{
-		$base_layout = '../views/layout.php';
-		$custom_view = '../views/'.$view_name.'.php';
+		$base_layout = '../Views/layout.php';
+		$custom_view = '../Views/'.$view_name.'.php';
 
 		if(file_exists($base_layout))
 		{
