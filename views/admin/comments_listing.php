@@ -17,26 +17,31 @@ include 'navbar.inc.php';
 		<div class="admin-comments-article">
 			<div class="header"><h1><?= $article['title'] ?></h1><span><?= date('d/m/Y H:i:s', $article['created_at']) ?></span></div>
 			<a id="toggleComments" class="link-btn" href="javascript:void(0)" onClick="showOnlyReportedComments()">Afficher uniquement les commentaires signalés</a>
+
 			<table class="table">
-				<tr>
-					<th class="table-col-comment">Commentaire</th>
-					<th class="table-col-date">Date</th>
-					<th class="table-col-report">Nombre de signalements</th>
-					<th class="table-col-delete">Supprimer</th>
-				</tr>
-				<?php
-				foreach($article['comments'] as $comment)
-				{
-				?>
-				<tr data-reports="<?= $comment['reported_counter'] ?>">
-					<td><b><?= $comment['nickname'] ?></b><br><?= $comment['content'] ?></td>
-					<td><?= date('d/m/Y H:i:s', $comment['created_at']) ?></td>
-					<td><?= $comment['reported_counter'] ?></td>
-					<td><a href="<?= Config::get('BASE_URL')."admin/comments/delete/".$comment['id']."/".$article['id'] ?>">Supprimer</a></td>
-				</tr>
-				<?php
-				}
-				?>
+				<thead>
+					<tr>
+						<th class="table-col-comment">Commentaire</th>
+						<th class="table-col-date">Date</th>
+						<th class="table-col-report">Nombre de signalements</th>
+						<th class="table-col-delete">Supprimer</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach($article['comments'] as $comment)
+					{
+					?>
+					<tr data-reports="<?= $comment['reported_counter'] ?>">
+						<td data-colname="Commentaire"><b><?= $comment['nickname'] ?></b><br><?= $comment['content'] ?></td>
+						<td data-colname="Date"><?= date('d/m/Y H:i:s', $comment['created_at']) ?></td>
+						<td data-colname="Nombre de signalements"><?= $comment['reported_counter'] ?></td>
+						<td data-colname="Supprimer"><a href="<?= Config::get('BASE_URL')."admin/comments/delete/".$comment['id']."/".$article['id'] ?>">Supprimer</a></td>
+					</tr>
+					<?php
+					}
+					?>
+				</tbody>
 			</table>
 		</div>
 	<?php
@@ -54,9 +59,9 @@ function showOnlyReportedComments()
 	if(allComments)
 	{
 		$(".table tr").each((i, item) => {
-			if($(".table tr:nth-child("+(i+1)+")").data('reports') == 0)
+			if($(".table tbody tr:nth-child("+(i+1)+")").data('reports') == 0)
 			{
-				$(".table tr:nth-child("+(i+1)+")").hide(250);
+				$(".table tbody tr:nth-child("+(i+1)+")").hide(250);
 			}
 		});
 
@@ -66,7 +71,7 @@ function showOnlyReportedComments()
 	else
 	{
 		$(".table tr").each((i, item) => {
-			$(".table tr:nth-child("+(i+1)+")").show(250);
+			$(".table tbody tr:nth-child("+(i+1)+")").show(250);
 		});
 
 		allComments = true;

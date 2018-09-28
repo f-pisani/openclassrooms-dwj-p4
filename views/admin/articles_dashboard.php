@@ -18,31 +18,35 @@ include 'navbar.inc.php';
 		{
 		?>
 		<table class="table">
-			<tr>
-				<th class="table-col-article">Article</th>
-				<th class="table-col-statut">Statut</th>
-				<th class="table-col-createdat">Date de création</th>
-				<th class="table-col-updatedat">Dernière modification</th>
-				<th class="table-col-edit">Modifier</th>
-				<th class="table-col-delete">Supprimer</th>
-			</tr>
-			<?php
-			foreach($articles_list as $article)
-			{
-			?>
+			<thead>
+				<tr>
+					<th class="table-col-article">Article</th>
+					<th class="table-col-statut">Statut</th>
+					<th class="table-col-createdat">Date de création</th>
+					<th class="table-col-updatedat">Dernière modification</th>
+					<th class="table-col-edit">Modifier</th>
+					<th class="table-col-delete">Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				foreach($articles_list as $article)
+				{
+				?>
 
-			<tr>
-				<td><b><?= $article['title'] ?></b><br><?= substr(strip_tags($article['content']), 0, 256) ?>..</td>
-				<td><?= ($article['published'] == 1) ? 'Publié' : 'Brouillon' ?></td>
-				<td><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
-				<td><?= date('d/m/Y H:i:s', $article['updated_at']) ?></td>
-				<td><a href="<?= Config::get('BASE_URL')."admin/articles/edit/".$article['id'] ?>">Modifier</a></td>
-				<td><a href="<?= Config::get('BASE_URL')."admin/articles/delete/".$article['id'] ?>">Supprimer</a></td>
-			</tr>
+				<tr>
+					<td data-colname="Article"><b><?= $article['title'] ?></b><br><?= substr(strip_tags($article['content']), 0, 256) ?>..</td>
+					<td data-colname="Statut"><?= ($article['published'] == 1) ? 'Publié' : 'Brouillon' ?></td>
+					<td data-colname="Date de création"><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
+					<td data-colname="Dernière modification"><?= date('d/m/Y H:i:s', $article['updated_at']) ?></td>
+					<td data-colname="Modifier"><a href="<?= Config::get('BASE_URL')."admin/articles/edit/".$article['id'] ?>">Modifier</a></td>
+					<td data-colname="Supprimer"><a href="<?= Config::get('BASE_URL')."admin/articles/delete/".$article['id'] ?>">Supprimer</a></td>
+				</tr>
 
-			<?php
-			} // END FOREACH
-			?>
+				<?php
+				} // END FOREACH
+				?>
+			</tbody>
 		</table>
 		<?php
 		} // END ELSE

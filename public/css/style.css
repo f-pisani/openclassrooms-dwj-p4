@@ -149,6 +149,9 @@ input, textarea
 
 .link-btn
 {
+	display: inline-block;
+
+	text-align: center;
 	text-decoration: none;
 	font-size: 1.1rem;
 	font-weight: bold;
@@ -208,12 +211,12 @@ input, textarea
 	vertical-align: top;
 }
 
-.table tr:nth-child(1)
+.table thead tr:nth-child(1)
 {
 	border-bottom: 2px solid #009688;
 }
 
-.table tr:not(:nth-child(1)):not(:last-child)
+.table tbody tr:not(:last-child)
 {
 	border-bottom: 1px solid #202020;
 }
@@ -293,6 +296,12 @@ input, textarea
 
 	margin-top: 64px;
 }
+
+#admin-dashboard h1, #admin-dashboard h1~p
+{
+	text-align: center;
+}
+
 
 #admin-dashboard #action-list
 {
@@ -456,6 +465,13 @@ input, textarea
 /***********************************************************************************************************************
  * Admin :: Users
  */
+#admin-users
+{
+	width: 90%;
+
+	margin: auto;
+}
+
 #table-users .table-col-id{ width: 5%; }
 #table-users .table-col-email{ width: 20%; }
 #table-users .table-col-role{ width: 5%; }
@@ -472,7 +488,7 @@ input, textarea
 #alaska-header
 {
 	width: 100%;
-	height: 400px;
+	height: auto;
 
 	overflow: hidden;
 

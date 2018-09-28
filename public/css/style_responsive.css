@@ -1,0 +1,251 @@
+@media screen and (max-width: 1023px)
+{
+    .table,
+    .table thead,
+    .table tbody,
+    .table th,
+    .table td,
+    .table tr{
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none; for accessibility) */
+    .table thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .table tr{
+        border: 1px solid #ccc;
+    }
+
+	.table tbody tr td{
+		position: relative;
+
+		border: none;
+		border-bottom: 1px solid #eee;
+
+		padding-left: 50% !important;
+		padding-top: 16px;
+		padding-bottom: 16px;
+
+		white-space: normal;
+		text-align: left;
+
+		word-break: break-all
+	}
+
+	.table tbody tr td:before{
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		position: absolute;
+		top: 6px;
+		left: 6px;
+
+		width: 40%;
+		height: 100%;
+
+		white-space: normal;
+
+		text-align: left;
+		font-weight: bold;
+	}
+
+    /*
+    Label the data
+    */
+    .table td::before{
+        content: attr(data-colname);
+    }
+
+	.table tr:nth-child(1)
+	{
+		border-bottom: none;
+	}
+
+	#admin-articles .table .table-col-article{ width: auto; }
+	#admin-articles .table .table-col-statut{ width: auto; }
+	#admin-articles .table .table-col-createdat{ width: auto; }
+	#admin-articles .table .table-col-updatedat{ width: auto; }
+	#admin-articles .table .table-col-edit{ width: auto; }
+	#admin-articles .table .table-col-delete{ width: auto; }
+	#admin-comments .table .table-col-title{ width: auto; }
+	#admin-comments .table .table-col-createdat{ width: auto; }
+	#admin-comments .table .table-col-commentsCount{ width: auto; }
+	#admin-comments .table .table-col-commentsReported{ width: auto; }
+	#admin-comments .table .table-col-show{ width: auto; }
+	#admin-comments .table .table-col-comment{ width: auto; }
+	#admin-comments .table .table-col-date{ width: auto; }
+	#admin-comments .table .table-col-report{ width: auto; }
+	#admin-comments .table .table-col-delete{ width: auto; }
+	#table-users .table-col-id{ width: auto; }
+	#table-users .table-col-email{ width: auto; }
+	#table-users .table-col-role{ width: auto; }
+	#table-users .table-col-commentsCount{ width: auto; }
+	#table-users .table-col-commentsReported{ width: auto; }
+	#table-users .table-col-createdAt{ width: auto; }
+	#table-users .table-col-updatedAt{ width: auto; }
+	#table-users .table-col-action{ width: auto; }
+
+	.link-btn
+	{
+		padding: 8px;
+	}
+
+	#admin-users .table tr td:last-child, #admin-comments .table tr td:last-child
+	{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		padding: 8px !important;
+	}
+
+	.admin-comments-article .table tr td:first-child, #admin-articles .table tr td:first-child{
+		padding: 8px !important;
+	}
+
+	#admin-users .table tr td:last-child::before, #admin-comments .table tr td:last-child::before,
+	.admin-comments-article .table tr td:first-child::before, #admin-articles .table tr td:first-child::before
+	{
+		display: none;
+		content: "";
+	}
+}
+
+@media screen and (max-width: 1025px)
+{
+	#admin-navbar
+	{
+		flex-direction: column;
+
+		height: auto;
+	}
+
+	#admin-navbar .brand
+	{
+		text-align: center;
+		margin-top: 12px;
+	}
+
+	#admin-navbar .links ul li
+	{
+		text-align: center;
+	}
+
+	.articles-list-item
+	{
+		width: 80%;
+
+		padding: 32px;
+		margin: 32px;
+	}
+
+	#blog #post, #blog #comments
+	{
+		width: 80%;
+	}
+
+	#admin-dashboard #action-list .action-item
+	{
+		width: 35%;
+
+		margin: 12px;
+	}
+
+	.admin-comments-article .header
+	{
+		flex-direction: column;
+	}
+}
+
+@media screen and (max-width: 800px)
+{
+	.form .form-row
+	{
+		align-items: flex-start;
+		flex-direction: column;
+
+		padding: 12px;
+	}
+
+	.form .form-row .label
+	{
+		width: 100%;
+
+		margin: 8px 0 8px 0;
+	}
+
+	.form .form-row .input
+	{
+		box-sizing: border-box;
+
+		width: 100%;
+
+		margin: 8px 0 8px 0;
+	}
+
+	.form .btn
+	{
+		align-self: center;
+		justify-self: center;
+	}
+
+	#blog, #admin-dashboard
+	{
+		width: 90%;
+		margin: auto;
+	}
+
+	#blog #post .footer
+	{
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	#admin-dashboard #action-list .action-item
+	{
+		width: 40%;
+	}
+
+	#admin-articles
+	{
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 426px)
+{
+	#admin-navbar .links ul
+	{
+		flex-direction: column;
+
+		padding: 0;
+	}
+
+	#admin-navbar .links ul li
+	{
+		margin: 8px 0 8px 0;
+	}
+
+	.articles-list-item .footer
+	{
+		align-items: flex-start;
+		flex-direction: column;
+
+		margin-top: 16px;
+	}
+
+	#blog #post .title::before, #blog #comments .title::before
+	{
+		margin-left: -12px;
+	}
+
+	#admin-dashboard #action-list .action-item
+	{
+		width: 90%;
+	}
+}
