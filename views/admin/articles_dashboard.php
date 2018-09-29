@@ -39,8 +39,8 @@ include 'navbar.inc.php';
 					<td data-colname="Statut"><?= ($article['published'] == 1) ? 'Publié' : 'Brouillon' ?></td>
 					<td data-colname="Date de création"><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
 					<td data-colname="Dernière modification"><?= date('d/m/Y H:i:s', $article['updated_at']) ?></td>
-					<td data-colname="Modifier"><a href="<?= Config::get('BASE_URL')."admin/articles/edit/".$article['id'] ?>">Modifier</a></td>
-					<td data-colname="Supprimer"><a href="<?= Config::get('BASE_URL')."admin/articles/delete/".$article['id'] ?>">Supprimer</a></td>
+					<td data-colname="Modifier"><a class="link-flat" href="<?= Config::get('BASE_URL')."admin/articles/edit/".$article['id'] ?>">Modifier</a></td>
+					<td data-colname="Supprimer"><a class="link-flat" href="<?= Config::get('BASE_URL')."admin/articles/delete/".$article['id'] ?>">Supprimer</a></td>
 				</tr>
 
 				<?php

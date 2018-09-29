@@ -55,7 +55,7 @@ include 'navbar.inc.php';
 			{
 			?>
 			<div class="footer">
-				<a href="<?= Config::get('BASE_URL')."report/".$article['id']."/".$comment['id'] ?>"><i class="fas fa-exclamation-triangle"></i> Signaler</a>
+				<a class="link-flat" href="<?= Config::get('BASE_URL')."report/".$article['id']."/".$comment['id'] ?>"><i class="fas fa-exclamation-triangle"></i> Signaler</a>
 			</div>
 			<?php
 			}

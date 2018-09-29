@@ -157,7 +157,6 @@ input, textarea
 	font-weight: bold;
 
 	padding: 8px 24px 8px 24px;
-	margin-top: 16px;
 	color: #202020;
 
 	background-color: transparent;
@@ -175,6 +174,20 @@ input, textarea
 	color: white;
 
 	transition: 0.2s;
+}
+
+.link-flat
+{
+	font-weight: bold;
+	color: #0069c0;
+
+	padding: 4px 8px 4px 8px;
+}
+
+.link-flat:hover
+{
+	background-color: rgba(0, 105, 192, 0.2);
+	text-decoration: none;
 }
 
 .link-btn-disabled
@@ -670,6 +683,8 @@ input, textarea
 
 	padding-left: 12px;
 	border-left: 3px solid #26a69a;
+
+	word-wrap: break-word;
 }
 
 

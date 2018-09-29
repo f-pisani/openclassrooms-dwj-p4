@@ -36,7 +36,7 @@ include 'navbar.inc.php';
 						<td data-colname="Commentaire"><b><?= $comment['nickname'] ?></b><br><?= $comment['content'] ?></td>
 						<td data-colname="Date"><?= date('d/m/Y H:i:s', $comment['created_at']) ?></td>
 						<td data-colname="Nombre de signalements"><?= $comment['reported_counter'] ?></td>
-						<td data-colname="Supprimer"><a href="<?= Config::get('BASE_URL')."admin/comments/delete/".$comment['id']."/".$article['id'] ?>">Supprimer</a></td>
+						<td data-colname="Supprimer"><a class="link-flat" href="<?= Config::get('BASE_URL')."admin/comments/delete/".$comment['id']."/".$article['id'] ?>">Supprimer</a></td>
 					</tr>
 					<?php
 					}
