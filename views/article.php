@@ -12,7 +12,7 @@ include 'navbar.inc.php';
 	?>
 
 	<div id="post">
-		<h1 class="title">&nbsp;&nbsp;&nbsp;<?= $article['title'] ?></h1>
+		<h1 class="title">&nbsp;&nbsp;&nbsp;<?= htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ?></h1>
 		<div class="content"><?= $article['content'] ?></div>
 		<div class="footer">
 			<div class="metadata"><span class="author">Par <b><?= $article['user_displayName'] ?></b> publié le <?= date('d/m/Y \à H:i', $article['created_at']) ?></span>
@@ -24,12 +24,16 @@ include 'navbar.inc.php';
 			<div class="nextprev">
 				<?php
 				if($article['next'] != null)
-					echo "<span>Suivant : <a data-nav=\"next\" href=\"".Config::get('BASE_URL')."articles/".$article['next']['id']."\">".$article['next']['title']."</a></span>";
+					echo "<span>Suivant :
+							<a data-nav=\"next\" href=\"".Config::get('BASE_URL')."articles/".$article['next']['id']."\">
+							".htmlentities($article['next']['title'], ENT_HTML5 | ENT_QUOTES )."</a></span>";
 
-				echo "<span>Actuel : ".$article['title']."</span>";
+				echo "<span>Actuel : ". htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ."</span>";
 
 				if($article['prev'] != null)
-					echo "<span>Précédent : <a data-nav=\"prev\" href=\"".Config::get('BASE_URL')."articles/".$article['prev']['id']."\">".$article['prev']['title']."</a></span>";
+					echo "<span>Précédent :
+					      	<a data-nav=\"prev\" href=\"".Config::get('BASE_URL')."articles/".$article['prev']['id']."\">
+							".htmlentities($article['prev']['title'], ENT_HTML5 | ENT_QUOTES )."</a></span>";
 				?>
 			</div>
 		</div>

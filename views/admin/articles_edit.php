@@ -25,7 +25,7 @@ if(isset($article_id) && !empty($article_id) && $article_id !== null)
 		<form id="form-articleEditor" class="form" action="<?= $formAction ?>" method="post">
 			<div class="form-row">
 				<label class="label" for="title">Titre :</label>
-				<input class="input" type="text" id="title" name="title" value="<?= $article_title ?? '' ?>" placeholder="Le titre de votre article.." required>
+				<input class="input" type="text" id="title" name="title" value="<?= htmlentities($article_title, ENT_HTML5 | ENT_QUOTES ) ?? '' ?>" placeholder="Le titre de votre article.." required>
 			</div>
 
 			<div class="form-row">

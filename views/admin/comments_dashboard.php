@@ -32,7 +32,7 @@ include 'navbar.inc.php';
 			{
 			?>
 			<tr>
-				<td data-colname="Article"><b><?= $article['title'] ?></b></td>
+				<td data-colname="Article"><b><?= htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ?></b></td>
 				<td data-colname="Date de création"><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
 				<td data-colname="Nombre de commentaires"><?= $article['comments'] ?></td>
 				<td data-colname="Nombre de commentaires signalés"><?= $article['comments_reported'] ?></td>
@@ -46,7 +46,7 @@ include 'navbar.inc.php';
 			<?php
 			} // END FOREACH
 			?>
-			
+
 		</tbody>
 	</table>
 	<?php

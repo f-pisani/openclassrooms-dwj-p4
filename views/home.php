@@ -20,7 +20,11 @@ include 'navbar.inc.php';
 			{
 			?>
 			<div class="articles-list-item">
-				<h2 class="title">&nbsp;&nbsp;&nbsp;<a href="<?= Config::get('BASE_URL').'articles/'.$article['id'] ?>"><i class="fas fa-bookmark"></i> <?= $article['title'] ?></a></h2>
+				<h2 class="title">
+					&nbsp;&nbsp;&nbsp;
+					<a href="<?= Config::get('BASE_URL').'articles/'.$article['id'] ?>">
+						<i class="fas fa-bookmark"></i> <?= htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ?></a>
+				</h2>
 				<div class="excerp"><?= substr(strip_tags($article['content']), 0, 512) ?>..</div>
 				<div class="footer">
 					<span class="author">Par <b><?= $article['user_displayName'] ?></b> publié le <?= date('d/m/Y \à H:i', $article['created_at']) ?></span>

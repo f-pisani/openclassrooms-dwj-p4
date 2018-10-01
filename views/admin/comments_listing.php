@@ -15,7 +15,7 @@ include 'navbar.inc.php';
 		{
 	?>
 		<div class="admin-comments-article">
-			<div class="header"><h1><?= $article['title'] ?></h1><span><?= date('d/m/Y H:i:s', $article['created_at']) ?></span></div>
+			<div class="header"><h1><?= htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ?></h1><span><?= date('d/m/Y H:i:s', $article['created_at']) ?></span></div>
 			<a id="toggleComments" class="link-btn" href="javascript:void(0)" onClick="showOnlyReportedComments()">Afficher uniquement les commentaires signalés</a>
 
 			<table class="table">

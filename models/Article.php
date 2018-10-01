@@ -6,6 +6,17 @@ use Lib\{Configuration, Model};
 class Article extends Model
 {
 	/*******************************************************************************************************************
+	 * public function validateTitle($title)
+	 *
+	 * Return true if $title is a valid format; false otherwise
+	 */
+	public function validateTitle($title)
+	{
+		return (strlen($title) <= 256);
+	}
+
+
+	/*******************************************************************************************************************
 	 * public function create($user_id, $title, $content, $publish)
 	 *
 	 * Create an article

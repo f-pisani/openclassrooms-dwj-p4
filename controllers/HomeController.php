@@ -62,7 +62,7 @@ class HomeController extends Controller
 			// Form : Comment
 			if(User::isLogged() && $request->hasPost('comment'))
 			{
-				$comment = htmlentities(strip_tags(trim($request->post('comment'))), ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
+				$comment = htmlentities(trim($request->post('comment')), ENT_COMPAT | ENT_QUOTES | ENT_HTML5);
 
 				if(strlen($comment) > 0)
 				{

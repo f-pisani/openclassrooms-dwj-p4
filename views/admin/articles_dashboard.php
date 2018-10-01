@@ -35,7 +35,7 @@ include 'navbar.inc.php';
 				?>
 
 				<tr>
-					<td data-colname="Article"><b><?= $article['title'] ?></b><br><?= substr(strip_tags($article['content']), 0, 256) ?>..</td>
+					<td data-colname="Article"><b><?= htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ?></b><br><?= substr(strip_tags($article['content']), 0, 256) ?>..</td>
 					<td data-colname="Statut"><?= ($article['published'] == 1) ? 'Publié' : 'Brouillon' ?></td>
 					<td data-colname="Date de création"><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
 					<td data-colname="Dernière modification"><?= date('d/m/Y H:i:s', $article['updated_at']) ?></td>

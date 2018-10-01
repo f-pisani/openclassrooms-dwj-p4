@@ -27,7 +27,7 @@ class AdminCommentController extends Controller
 			foreach($q_articles as $article)
 			{
 				$i = count($articles_list);
-				$articles_list[$i] = array_map('strip_tags', $article);
+				$articles_list[$i] = $article;
 
 				$articles_list[$i]['comments'] = 0;
 				$articles_list[$i]['comments_reported'] = 0;

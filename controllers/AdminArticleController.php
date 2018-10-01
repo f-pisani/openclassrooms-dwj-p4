@@ -47,16 +47,15 @@ class AdminArticleController extends Controller
 
 			$errors = array();
 
+			$articles = new Article();
 			if($request->hasPost('title') && $request->hasPost('article'))
 			{
 				$article_title = $request->post('title');
 				$article_content = $request->post('article');
 				$article_publish = $request->post('publish');
 
-				if(strlen($article_title) <= 512)
+				if($articles->validateTitle($article_title))
 				{
-					$articles = new Article();
-
 					if($articles->create(User::id(), $article_title, $article_content, $article_publish))
 					{
 						header('Location: '.Config::get('BASE_URL').'admin/articles/edit/'.$articles->lastId());
@@ -66,7 +65,7 @@ class AdminArticleController extends Controller
 						$errors["Erreur lors de la création !"] = "Une erreur est survenue, veuillez réessayer.";
 				}
 				else
-					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 512 caractères.";
+					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 256 caractères.";
 			}
 
 			return View::view('admin/articles_edit', compact('request', 'title', 'errors', 'article_title', 'article_content', 'article_publish'));
@@ -117,7 +116,7 @@ class AdminArticleController extends Controller
 				$article_content = $request->post('article');
 				$article_publish = $request->post('publish');
 
-				if(strlen($article_title) <= 512)
+				if($articles->validateTitle($article_title))
 				{
 					if($articles->update(User::id(), $article_id, $article_title, $article_content, $article_publish))
 						$success["Article mis à jour !"] = "Les modifications ont bien effectuées.";
@@ -125,7 +124,7 @@ class AdminArticleController extends Controller
 						$errors["Erreur lors de la création !"] = "Une erreur est survenue, veuillez réessayer.";
 				}
 				else
-					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 512 caractères.";
+					$errors["Format du titre invalide !"] = "Le titre de l'article ne peut pas être supérieur à 256 caractères.";
 			}
 
 			return View::view('admin/articles_edit', compact('request', 'title', 'success', 'errors', 'article_id', 'article_title', 'article_content', 'article_publish'));
