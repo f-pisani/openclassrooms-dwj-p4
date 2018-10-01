@@ -146,7 +146,9 @@
 
 	#blog #post, #blog #comments
 	{
-		width: 80%;
+		width: 90%;
+
+		padding: 12px;
 	}
 
 	#admin-dashboard #action-list .action-item
@@ -241,7 +243,7 @@
 
 	#blog #post .title::before, #blog #comments .title::before
 	{
-		margin-left: -12px;
+		margin-left: -8px;
 	}
 
 	#admin-dashboard #action-list .action-item

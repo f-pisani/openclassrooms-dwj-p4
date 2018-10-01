@@ -613,6 +613,8 @@ input, textarea
 	margin-bottom: 64px;
 
 	text-align: left;
+
+	word-break: break-all;
 }
 
 #blog #post .title::before, #blog #comments .title::before
