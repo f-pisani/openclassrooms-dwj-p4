@@ -200,7 +200,7 @@
 		margin: auto;
 	}
 
-	#blog #post .footer
+	#blog #post .footer .metadata
 	{
 		align-items: flex-start;
 		flex-direction: column;

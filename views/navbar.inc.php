@@ -10,6 +10,7 @@
 
 	<nav class="links">
 		<ul>
+			<li><a href="<?= Config::get('BASE_URL') ?>"><i class="fas fa-book-open"></i> Articles</a></li>
 			<?php
 			if(User::isLogged())
 			{

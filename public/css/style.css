@@ -20,11 +20,15 @@ a
 {
 	text-decoration: none;
 	color: #0069c0;
+
+	transition: .2s;
 }
 
 a:hover
 {
 	text-decoration: underline;
+
+	transition: .2s;
 }
 
 input, textarea
@@ -632,7 +636,36 @@ input, textarea
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-direction: column;
+}
+
+#blog #post .footer .metadata
+{
+	width: 100%;
+	margin-top: 16px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	flex-direction: row;
+}
+
+#blog #post .footer .nextprev
+{
+	margin: auto;
+	margin-top: 16px;
+
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#blog #post .footer .nextprev a:hover
+{
+	text-decoration: none;
+
+	text-shadow: 0px 0px 1px #0069c0;
 }
 
 #blog #comments #form-comment

@@ -132,4 +132,42 @@ class Article extends Model
 
 		return $this->rawSQL($query);
 	}
+
+
+	/*******************************************************************************************************************
+	 * public function getPreviousArticle($article_id)
+	 *
+	 * Retrieves the previous article published before $article_id
+	 */
+	public function getPreviousArticleId($article_id)
+	{
+		$article_id = $this->escape_string($article_id);
+		$query = "SELECT *
+				  FROM posts
+				  WHERE created_at < (SELECT created_at FROM posts WHERE id = '$article_id' AND published = 1)
+				  AND published = 1
+				  ORDER BY created_at DESC
+				  LIMIT 1";
+
+		return $this->rawSQL($query);
+	}
+
+
+	/*******************************************************************************************************************
+	 * public function getNextArticle($article_id)
+	 *
+	 * Retrieves the next article published after $article_id
+	 */
+	public function getNextArticleId($article_id)
+	{
+		$article_id = $this->escape_string($article_id);
+		$query = "SELECT *
+				  FROM posts
+				  WHERE created_at > (SELECT created_at FROM posts WHERE id = '$article_id' AND published = 1)
+				  AND published = 1
+				  ORDER BY created_at ASC
+				  LIMIT 1";
+
+		return $this->rawSQL($query);
+	}
 }

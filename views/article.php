@@ -15,11 +15,23 @@ include 'navbar.inc.php';
 		<h1 class="title">&nbsp;&nbsp;&nbsp;<?= $article['title'] ?></h1>
 		<div class="content"><?= $article['content'] ?></div>
 		<div class="footer">
-			<span class="author">Par <b><?= $article['user_displayName'] ?></b> publié le <?= date('d/m/Y \à H:i', $article['created_at']) ?></span>
+			<div class="metadata"><span class="author">Par <b><?= $article['user_displayName'] ?></b> publié le <?= date('d/m/Y \à H:i', $article['created_at']) ?></span>
 			<?php
 			if($article['updated_at'] != $article['created_at'])
 				echo "<span class=\"update\">Mis à jour le ". date('d/m/Y \à H:i', $article['updated_at']) ."</span>";
 			?>
+			</div>
+			<div class="nextprev">
+				<?php
+				if($article['next'] != null)
+					echo "<span>Suivant : <a data-nav=\"next\" href=\"".Config::get('BASE_URL')."articles/".$article['next']['id']."\">".$article['next']['title']."</a></span>";
+
+				echo "<span>Actuel : ".$article['title']."</span>";
+
+				if($article['prev'] != null)
+					echo "<span>Précédent : <a data-nav=\"prev\" href=\"".Config::get('BASE_URL')."articles/".$article['prev']['id']."\">".$article['prev']['title']."</a></span>";
+				?>
+			</div>
 		</div>
 	</div>
 

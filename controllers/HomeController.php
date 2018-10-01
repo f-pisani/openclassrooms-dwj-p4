@@ -82,6 +82,8 @@ class HomeController extends Controller
 			$articles_list = array();
 			foreach($q_articles as $article)
 			{
+				$article['next'] = $articles->getNextArticleId($article['id'])->fetch_assoc();
+				$article['prev'] = $articles->getPreviousArticleId($article['id'])->fetch_assoc();
 				$article['comments'] = array();
 				$result_comments = $comments->getAll($article['id']);
 
