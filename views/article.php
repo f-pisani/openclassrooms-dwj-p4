@@ -93,6 +93,7 @@ include 'navbar.inc.php';
 
 	function showMoreComments()
 	{
+		console.log(currentComments_displayed+"/"+$("#comments .comment").length)
 		currentComments_displayed += showMoreComments_offset;
 
 		$("#comments .comment").each(function(i, item){
@@ -102,12 +103,14 @@ include 'navbar.inc.php';
 			}
 		});
 
-		$('html, body').animate({
-			 scrollTop: $("#comments .comment:nth-of-type("+currentComments_displayed+")").offset().top
-		 }, 500);
-
-		if(currentComments_displayed == $("#comments .comment").length)
+		if(currentComments_displayed >= $("#comments .comment").length)
 			$("a#showMoreComments").hide(500).css('display', 'none');
+		else
+		{
+			$('html, body').animate({
+				 scrollTop: $("#comments .comment:nth-of-type("+currentComments_displayed+")").offset().top
+			 }, 500);
+		}
 	}
 
 	//

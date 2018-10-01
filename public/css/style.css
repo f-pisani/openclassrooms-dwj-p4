@@ -462,7 +462,6 @@ input, textarea
 #admin-comments .table tr td
 {
 	text-align: justify;
-	word-break: keep-all;
 
 	vertical-align: middle;
 }
