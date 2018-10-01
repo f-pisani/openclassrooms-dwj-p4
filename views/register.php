@@ -14,13 +14,13 @@ include 'navbar.inc.php';
 		<div class="form-row">
 			<label class="label" for="email">Votre email :</label>
 			<input type="email" class="input" id="email" name="email" placeholder="martin.dupont@gmail.com"
-			value="<?= $data['email'] ?? '' ?>" required>
+			value="<?= htmlentities($data['email'], ENT_HTML5 | ENT_QUOTES ) ?? '' ?>" required>
 		</div>
 
 		<div class="form-row">
 			<label class="label" for="nickname">Votre pseudonyme :</label>
 			<input type="text" class="input" id="nickname" name="nickname" placeholder="Le pseudo qui sera affiché.."
-			value="<?= $data['nickname'] ?? '' ?>" required>
+			value="<?= htmlentities($data['nickname'], ENT_HTML5 | ENT_QUOTES ) ?? '' ?>" required>
 		</div>
 
 		<div class="form-row">

@@ -16,7 +16,7 @@ class AuthController extends Controller
 		if(!User::isLogged())
 		{
 			$request = $this->request;
-			$user = new User();
+			$users = new User();
 
 			$title = "Billet simple pour l'Alaska - Inscription";
 			$data = array();
@@ -26,15 +26,15 @@ class AuthController extends Controller
 			if($request->hasPost('email') && $request->hasPost('nickname') &&
 			   $request->hasPost('pwd') && $request->hasPost('pwd_conf'))
 			{
-				$data['email'] = strip_tags(htmlentities($request->post('email')));
-				$data['nickname'] = strip_tags(htmlentities(trim($request->post('nickname'))));
+				$data['email'] = trim($request->post('email'));
+				$data['nickname'] = trim($request->post('nickname'));
 				$data['pwd'] = $request->post('pwd');
 				$data['pwd_conf'] = $request->post('pwd_conf');
 
-				if(!preg_match('/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/', $data['email']))
+				if(!$users->validateEmail($data['email']))
 					$errors["Email invalide !"] = "Le format de l'adresse email n'est pas valide. Format: exemple@fai.ext";
 
-				if(!preg_match('/^[a-zA-Z0-9_\- ]{3,42}$/', $data['nickname']))
+				if(!$users->validateNickname($data['nickname']))
 					$errors["Pseudonyme invalide !"] = "Le pseudonyme ne peut contenir que des caractères alphanumériques,
 					                                    des espaces ou des tirets. Il doit faire entre 3 et 42 caractères.";
 
@@ -43,12 +43,14 @@ class AuthController extends Controller
 
 				$result = null;
 				if(count($errors) == 0)
-					$result = $user->create($data['email'], $data['nickname'], $data['pwd']);
+				{
+					$result = $users->create($data['email'], $data['nickname'], $data['pwd']);
 
-				if($result == false)
-					$errors["Ce compte existe déjà !"] = "L'adresse email ou le pseudonyme sont déjà utilisés.";
-				else
-					$success["Création réussie !"] = "Vous pouvez désormais vous connecter et déposer des commentaires.";
+					if($result == false)
+						$errors["Ce compte existe déjà !"] = "L'adresse email ou le pseudonyme sont déjà utilisés.";
+					else
+						$success["Création réussie !"] = "Vous pouvez désormais vous connecter et déposer des commentaires.";
+				}
 			}
 
 			return View::view('register', compact('request', 'title', 'data', 'success', 'errors'));
@@ -153,8 +155,8 @@ class AuthController extends Controller
 			// Changes display name requested
 			if($request->hasPost('display_name') && $request->post('display_name') !== User::nickname())
 			{
-				$display_name = strip_tags(htmlentities(trim($request->post('display_name'))));
-				if(preg_match('/^[a-zA-Z0-9_\- ]{3,42}$/', $display_name))
+				$display_name = trim($request->post('display_name'));
+				if($users->validateNickname($display_name))
 				{
 					if($user->updateDisplayName(User::id(), $display_name))
 						$success["Pseudonyme modifié !"] = "Votre pseudonyme a bien été mis à jour.";

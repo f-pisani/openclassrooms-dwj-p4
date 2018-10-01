@@ -6,6 +6,29 @@ use Lib\{Configuration, Model};
 class User extends Model
 {
 	/*******************************************************************************************************************
+	 * public function validateNickname($nickname)
+	 *
+	 * Return true if $nickname is valid; false otherwise
+	 */
+	public function validateNickname($nickname)
+	{
+		return preg_match('/^[a-zA-Z0-9_\- ]{3,42}$/', $nickname);
+	}
+
+
+	/*******************************************************************************************************************
+	 * public function validateEmail($email)
+	 *
+	 * Return true if $email is valid; false otherwise
+	 */
+	public function validateEmail($email)
+	{
+		// Regex source: https://projects.lukehaas.me/regexhub/
+		return preg_match('/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/', $email);
+	}
+
+
+	/*******************************************************************************************************************
 	 * public function create($email, $nickname, $pwd)
 	 *
 	 * Create a new user in database
