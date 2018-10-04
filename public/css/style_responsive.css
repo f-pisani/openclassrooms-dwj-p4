@@ -217,9 +217,14 @@
 	{
 		width: 90%;
 	}
+
+	#admin-comments .table tbody tr td
+	{
+
+	}
 }
 
-@media screen and (max-width: 426px)
+@media screen and (max-width: 740px)
 {
 	#admin-navbar .links ul
 	{
