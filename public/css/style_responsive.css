@@ -33,7 +33,7 @@
 		white-space: normal;
 		text-align: left;
 
-		word-break: break-all
+		word-break: break-word;
 	}
 
 	.table tbody tr td:before{
@@ -45,7 +45,7 @@
 		top: 6px;
 		left: 6px;
 
-		width: 40%;
+		width: 45%;
 		height: 100%;
 
 		white-space: normal;
