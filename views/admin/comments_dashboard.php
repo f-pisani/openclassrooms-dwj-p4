@@ -35,7 +35,7 @@ include 'navbar.inc.php';
 				<td data-colname="Article"><b><?= htmlentities($article['title'], ENT_HTML5 | ENT_QUOTES ) ?></b></td>
 				<td data-colname="Date de création"><?= date('d/m/Y H:i:s', $article['created_at']) ?></td>
 				<td data-colname="Commentaires"><?= $article['comments'] ?></td>
-				<td data-colname="Commentaires signalés"><?= $article['comments_reported'] ?></td>
+				<td data-colname="Signalements"><?= $article['comments_reported'] ?></td>
 				<?php
 				if($article['comments'] > 0)
 					echo "<td data-colname=\"Voir les commentaires\"><a class=\"link-btn\" href=\"".Config::get('BASE_URL').'admin/comments/list/'.$article['id']."\">Voir les commentaires</a></td>";

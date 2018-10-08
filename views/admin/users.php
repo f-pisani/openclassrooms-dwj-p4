@@ -43,8 +43,8 @@ include 'navbar.inc.php';
 				<td data-colname="#"><?= $user['id'] ?></td>
 				<td data-colname="Email"><?= $user['email'] ?></td>
 				<td data-colname="Role"><?= strtoupper($user['role']) ?></td>
-				<td data-colname="Nombre de commentaires"><?= $user['comments_count'] ?></td>
-				<td data-colname="Nombre de commentaires signalés"><?= $user['reports_count'] ?></td>
+				<td data-colname="Commentaires"><?= $user['comments_count'] ?></td>
+				<td data-colname="Signalements"><?= $user['reports_count'] ?></td>
 				<td data-colname="Date de création"><?= date('d/m/Y H:i:s', $user['created_at']) ?></td>
 				<td data-colname="Mis à jour"><?= date('d/m/Y H:i:s', $user['updated_at']) ?></td>
 				<td data-colname="Gestion des droits">
