@@ -117,7 +117,7 @@ class AuthController extends Controller
 		if(User::isLogged())
 		{
 			$request = $this->request;
-			$user = new User();
+			$users = new User();
 
 			$title = "Billet simple pour l'Alaska - Mon profil";
 			$success = array();
@@ -126,7 +126,7 @@ class AuthController extends Controller
 			// Changes password requested
 			if($request->hasPost('pwd_current') && $request->hasPost('pwd_new') && $request->hasPost('pwd_new_conf'))
 			{
-				$pwd_current = $user->escape_string($request->post('pwd_current'));
+				$pwd_current = $users->escape_string($request->post('pwd_current'));
 				$pwd_new = $request->post('pwd_new');
 				$pwd_new_conf = $request->post('pwd_new_conf');
 
@@ -136,7 +136,7 @@ class AuthController extends Controller
 					// Check if new password match new password confirmation
 					if($pwd_new === $pwd_new_conf)
 					{
-						if($user->updatePassword(User::id(), $pwd_new))
+						if($users->updatePassword(User::id(), $pwd_new))
 						{
 							$success["Mot de passe modifié !"] = "Votre mot de passe a bien été modifié. Ne l'oubliez pas lors
 							de votre prochaine connexion.";
@@ -158,7 +158,7 @@ class AuthController extends Controller
 				$display_name = trim($request->post('display_name'));
 				if($users->validateNickname($display_name))
 				{
-					if($user->updateDisplayName(User::id(), $display_name))
+					if($users->updateDisplayName(User::id(), $display_name))
 						$success["Pseudonyme modifié !"] = "Votre pseudonyme a bien été mis à jour.";
 					else
 						$errors["Pseudonyme indisponible !"] = "Ce pseudonyme est déjà utilisé par un autre utilisateur.";
