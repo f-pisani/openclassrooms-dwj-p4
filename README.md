@@ -1,3 +1,3 @@
-# OCBlog
+# openclassrooms-dwj-p4
 
-P8 : OpenClassrooms OpenDeclic
+OpenClassrooms - Projet 4 - Créez un blog pour un écrivain
